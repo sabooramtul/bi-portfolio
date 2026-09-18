@@ -1,0 +1,236 @@
+<title>Reader Growth Pulse</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#0b1020; --bg2:#0f1730; --surface:#131c36; --surface-2:#1a2547; --line:#25325c; --ink:#eef2ff; --ink-2:#aab4d6; --ink-3:#6f7ba3;
+  --glow:#4fd8ff; --glow-2:#ff5fb3;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181;
+  --seq1:#184f95; --seq2:#256abf; --seq3:#3987e5; --seq4:#6da7ec; --seq5:#9ec5f4; --seq6:#cde2fb;
+  --good:#5cc35c; --warn:#e6a93a; --crit:#f07472;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,sans-serif;font-size:14px;line-height:1.45;padding:0 20px;padding-block:18px 48px;
+  background-image:radial-gradient(1200px 600px at 20% -10%,rgba(79,216,255,.10),transparent 60%),radial-gradient(900px 500px at 100% 0%,rgba(255,95,179,.08),transparent 60%),repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 1px,transparent 1px 4px)}
+h1,h2,h3{font-family:"Space Grotesk",Manrope,sans-serif;margin:0;text-wrap:balance}
+.num{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1360px;margin:0 auto;display:grid;gap:18px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--glow);font-weight:600}
+h1{font-size:28px;font-weight:700;letter-spacing:-.01em}
+.byline{color:var(--ink-2);font-size:13px}.byline b{color:var(--ink)}
+.filters{display:flex;flex-wrap:wrap;gap:10px}
+.filters label{display:flex;flex-direction:column;gap:3px;font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 9px;min-width:130px}
+select:focus,button:focus{outline:2px solid var(--glow);outline-offset:1px}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(12,1fr)}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0)) ,var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;position:relative}
+.card h2{font-size:14px;font-weight:600}.card .sub{font-size:12px;color:var(--ink-3);margin-bottom:10px}
+.span-3{grid-column:span 3}.span-4{grid-column:span 4}.span-5{grid-column:span 5}.span-6{grid-column:span 6}.span-7{grid-column:span 7}.span-8{grid-column:span 8}.span-12{grid-column:span 12}
+@media (max-width:1000px){.span-3,.span-4{grid-column:span 6}.span-5,.span-7,.span-8{grid-column:span 12}}
+@media (max-width:600px){.span-3,.span-4,.span-6{grid-column:span 12}}
+/* hero */
+.hero{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center}
+@media (max-width:700px){.hero{grid-template-columns:1fr}}
+.holo{width:210px;height:210px;filter:drop-shadow(0 0 14px rgba(79,216,255,.45))}
+.holo .ring{transform-origin:105px 105px;animation:spin 24s linear infinite}
+.holo .ring2{transform-origin:105px 105px;animation:spin 40s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.holo .ring,.holo .ring2{animation:none}}
+.hero .big{font-family:"Space Grotesk";font-size:42px;font-weight:700;line-height:1;letter-spacing:-.02em}
+.hero .stat{display:grid;gap:4px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:600px){.stats{grid-template-columns:1fr 1fr}}
+.stat .l{font-size:12px;color:var(--ink-3)}
+.stat .v{font-size:24px;font-weight:600}
+.stat .d{font-size:12px;color:var(--ink-2)}
+.up{color:var(--good)}.down{color:var(--crit)}
+/* insight */
+.insight{display:grid;gap:10px;line-height:1.55}
+.insight .lead{font-family:"Space Grotesk";font-size:17px;font-weight:600}
+.insight p{margin:0}
+.insight .tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--glow-2);font-weight:600}
+.chip{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600;background:var(--surface-2);color:var(--ink-2);margin-right:4px}
+/* charts */
+.chart svg{width:100%;height:auto;display:block;overflow:visible}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--ink-2);margin-bottom:6px}
+.legend span{display:inline-flex;align-items:center;gap:6px}.legend i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.tip{position:absolute;pointer-events:none;background:#eef2ff;color:#0b1020;font-size:12px;padding:6px 9px;border-radius:8px;white-space:nowrap;transform:translate(-50%,calc(-100% - 10px));opacity:0;transition:opacity .12s;z-index:2}
+.tip b{font-weight:700}
+.donut-wrap{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center}
+.donut-list{display:grid;gap:6px;font-size:13px}
+.dl{display:grid;grid-template-columns:12px 1fr auto auto;gap:8px;align-items:center}
+.dl i{width:10px;height:10px;border-radius:50%}
+.dl .num{color:var(--ink-2)}
+.heat{display:grid;gap:3px}
+.heat .row{display:grid;grid-template-columns:70px repeat(8,1fr);gap:3px;align-items:center;font-size:11px}
+.heat .row .lab{color:var(--ink-3);font-family:"JetBrains Mono"}
+.heat .cell{height:26px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono";font-size:11px;color:#0b1020;font-weight:600}
+.heat .cell.dim{color:var(--ink)}
+.heat .hdr{color:var(--ink-3);text-align:center;font-family:"JetBrains Mono"}
+.ab{display:grid;gap:10px}
+.ab .var{display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center;font-size:13px}
+.ab .bar{height:14px;border-radius:7px;background:var(--surface-2);overflow:hidden;position:relative}
+.ab .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:7px}
+.ab .bar em{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);opacity:.6}
+.verdict{font-size:13px;padding:10px 12px;border-radius:10px;background:var(--surface-2)}
+.verdict b{font-weight:700}
+.foot{font-size:12px;color:var(--ink-3)}.foot b{color:var(--ink-2)}
+.seg{display:inline-flex;background:var(--surface-2);border-radius:8px;padding:3px;gap:2px}
+.seg button{font:inherit;font-size:12px;font-weight:600;border:0;background:transparent;color:var(--ink-2);padding:5px 12px;border-radius:6px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 0 0 1px var(--line)}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Subscription analytics · Reader growth</div>
+      <h1>Reader Growth Pulse</h1>
+      <div class="byline">Prepared by <b>Amtul Saboor</b> · cohorts, acquisition, retention and experiments for a reading-subscription product</div>
+    </div>
+    <div class="filters">
+      <label>Plan<select id="fPlan"><option value="all">All plans</option><option>Monthly</option><option>Annual</option><option>Family</option></select></label>
+      <label>Channel<select id="fCh"><option value="all">All channels</option><option>Organic search</option><option>Paid social</option><option>Referral</option><option>Email</option><option>App store</option></select></label>
+      <label>Market<select id="fMkt"><option value="all">All markets</option><option>US</option><option>UK</option><option>DE</option><option>IN</option><option>BR</option></select></label>
+      <label>Window<div class="seg" id="win"><button aria-pressed="false" data-v="4">4 wk</button><button aria-pressed="true" data-v="13">13 wk</button><button aria-pressed="false" data-v="26">26 wk</button></div></label>
+    </div>
+  </header>
+
+  <section class="grid">
+    <div class="card span-7">
+      <div class="hero">
+        <svg class="holo" viewBox="0 0 210 210" id="holo"></svg>
+        <div>
+          <div class="stat" style="margin-bottom:14px"><span class="l" id="heroL">Active subscribers · all plans</span><span class="big num" id="heroV">—</span><span class="d" id="heroD"></span></div>
+          <div class="stats" id="stats"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card span-5"><div class="insight" id="insight"><span class="tag">Insights · update with every filter</span></div></div>
+  </section>
+
+  <section class="grid">
+    <div class="card span-4 chart">
+      <h2>Acquisition mix</h2><div class="sub" id="mixSub">New subscribers by channel · selected window</div>
+      <div class="donut-wrap"><svg viewBox="0 0 180 180" width="180" height="180" id="donut"></svg><div class="donut-list" id="dlist"></div></div>
+      <div class="tip" id="tipD"></div>
+    </div>
+    <div class="card span-8 chart">
+      <h2>Weekly net adds</h2><div class="sub">Gross adds and churn · selected scope</div>
+      <div class="legend"><span><i style="background:var(--s3)"></i>Gross adds</span><span><i style="background:var(--s2)"></i>Churned</span><span><i style="background:var(--glow)"></i>Net adds (line)</span></div>
+      <svg id="adds" viewBox="0 0 860 240" role="img" aria-label="Weekly gross adds, churn and net adds"></svg>
+      <div class="tip" id="tipA"></div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card span-7">
+      <h2>Cohort retention</h2><div class="sub" id="cohSub">Share of each signup cohort still subscribed after N months</div>
+      <div class="heat" id="heat"></div>
+    </div>
+    <div class="card span-5">
+      <h2>Experiment · onboarding recommendation shelf</h2><div class="sub">30-day conversion from trial, two-proportion z-test</div>
+      <div class="ab" id="ab"></div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card span-12 chart">
+      <h2>Retention curves by plan</h2><div class="sub">Survival by month since signup · cohorts inside the selected window</div>
+      <div class="legend" id="curveLeg"></div>
+      <svg id="curves" viewBox="0 0 1300 230" role="img" aria-label="Retention curves by plan"></svg>
+      <div class="tip" id="tipC"></div>
+    </div>
+  </section>
+
+  <div class="foot"><b>Data</b> simulated subscription ledger (52 weeks, 5 channels, 5 markets, 3 plans) generated with a fixed seed; retention and conversion rates follow published SaaS/media benchmarks. <b>Method</b> retention = active ÷ cohort size; net adds = gross adds − churn; A/B verdict at 95% confidence.</div>
+</div>
+
+<script>
+function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+const R=rng(7);
+const PLANS=['Monthly','Annual','Family'],CH=['Organic search','Paid social','Referral','Email','App store'],MK=['US','UK','DE','IN','BR'];
+const chBase={'Organic search':.30,'Paid social':.26,'Referral':.14,'Email':.12,'App store':.18};
+const mkBase={US:.42,UK:.14,DE:.12,IN:.2,BR:.12};
+const planBase={Monthly:.55,Annual:.3,Family:.15};
+const ret={Monthly:[1,.78,.66,.58,.53,.49,.46,.44],Annual:[1,.97,.95,.93,.91,.9,.88,.87],Family:[1,.88,.8,.75,.71,.68,.66,.64]};
+const chQual={'Organic search':1.06,'Paid social':.88,'Referral':1.12,'Email':1.04,'App store':.96};
+const W=52;const rows=[];
+for(let w=0;w<W;w++){const season=1+0.15*Math.sin(w/52*Math.PI*2+0.6)+(w>=44?0.22:0)+(w>=20&&w<24?0.12:0);
+  PLANS.forEach(p=>CH.forEach(c=>MK.forEach(m=>{const adds=Math.round(2600*season*planBase[p]*chBase[c]*mkBase[m]*(0.85+R()*0.3)*(c==='Paid social'&&w>=30?1.25:1));
+    const churnRate=(p==='Monthly'?.075:p==='Annual'?.012:.045)/chQual[c]*(0.9+R()*0.2);rows.push({w,plan:p,ch:c,mk:m,adds,churn:Math.round(adds*3.2*churnRate),active:Math.round(adds*(p==='Monthly'?5.5:p==='Annual'?22:11)),rev:adds*(p==='Monthly'?9.99:p==='Annual'?79:14.99)});})));}
+const state={plan:'all',ch:'all',mk:'all',win:13};
+const $=s=>document.querySelector(s);
+const inScope=r=>(state.plan==='all'||r.plan===state.plan)&&(state.ch==='all'||r.ch===state.ch)&&(state.mk==='all'||r.mk===state.mk);
+const fmt=n=>n>=1e6?(n/1e6).toFixed(2)+'M':n>=1e3?(n/1e3).toFixed(1)+'k':String(Math.round(n));
+const pct=(v,d=1)=>(v>0?'+':'')+v.toFixed(d)+'%';
+function sum(rs,k){return rs.reduce((a,r)=>a+r[k],0);}
+function render(){const win=state.win;const cur=rows.filter(r=>inScope(r)&&r.w>=W-win),prev=rows.filter(r=>inScope(r)&&r.w>=W-2*win&&r.w<W-win);
+  const adds=sum(cur,'adds'),churn=sum(cur,'churn'),pAdds=sum(prev,'adds'),pChurn=sum(prev,'churn');const active=sum(rows.filter(r=>inScope(r)&&r.w===W-1),'active'),pActive=sum(rows.filter(r=>inScope(r)&&r.w===W-1-win),'active');
+  const rev=sum(cur,'rev'),pRev=sum(prev,'rev');const churnRate=churn/(win/4.33)/(active+churn)*100,pChurnRate=pChurn/(win/4.33)/(pActive+pChurn)*100;
+  $('#heroL').textContent=`Active subscribers · ${scopeLabel()}`;$('#heroV').textContent=fmt(active);$('#heroD').innerHTML=`<span class="${active>=pActive?'up':'down'}">${pct((active-pActive)/pActive*100)}</span> vs previous ${win} weeks`;
+  $('#stats').innerHTML=[['Gross adds',fmt(adds),(adds-pAdds)/pAdds*100,true],['Net adds',fmt(adds-churn),((adds-churn)-(pAdds-pChurn))/Math.max(1,(pAdds-pChurn))*100,true],['Monthly churn',churnRate.toFixed(1)+'%',churnRate-pChurnRate,false,'pts'],['New-sub revenue','$'+fmt(rev),(rev-pRev)/pRev*100,true],['Avg. first payment','$'+(rev/adds).toFixed(2),((rev/adds)-(pRev/pAdds))/(pRev/pAdds)*100,true],['Trial → paid','—',0,true]].slice(0,5).map(([l,v,d,higherGood,unit])=>`<div class="stat"><span class="l">${l}</span><span class="v num">${v}</span><span class="d ${(d>=0)===higherGood?'up':'down'}">${unit==='pts'?(d>0?'+':'')+d.toFixed(1)+' pts':pct(d)}</span></div>`).join('');
+  renderHolo(active,churnRate);renderDonut(cur);renderAdds();renderHeat();renderCurves();renderAB();renderInsight(cur,prev,adds,churn,pAdds,pChurn,churnRate,pChurnRate);
+}
+function scopeLabel(){const p=[];if(state.plan!=='all')p.push(state.plan);if(state.ch!=='all')p.push(state.ch);if(state.mk!=='all')p.push(state.mk);return p.length?p.join(' · '):'all plans';}
+function renderHolo(active,churn){const health=Math.max(0,Math.min(100,100-churn*8));const r=84,c=2*Math.PI*r;
+  $('#holo').innerHTML=`<defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="var(--glow)"/><stop offset="1" stop-color="var(--glow-2)"/></linearGradient></defs>
+  <circle cx="105" cy="105" r="98" fill="none" stroke="var(--line)" stroke-width="1"/>
+  <g class="ring"><circle cx="105" cy="105" r="98" fill="none" stroke="url(#g1)" stroke-width="2" stroke-dasharray="40 120 12 30 6 400" opacity=".8"/></g>
+  <g class="ring2"><circle cx="105" cy="105" r="70" fill="none" stroke="var(--glow)" stroke-width="1" stroke-dasharray="4 10" opacity=".5"/></g>
+  <circle cx="105" cy="105" r="${r}" fill="none" stroke="var(--surface-2)" stroke-width="10"/>
+  <circle cx="105" cy="105" r="${r}" fill="none" stroke="url(#g1)" stroke-width="10" stroke-linecap="round" stroke-dasharray="${(c*health/100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 105 105)"/>
+  <text x="105" y="100" text-anchor="middle" font-family="Space Grotesk" font-weight="700" font-size="36" fill="var(--ink)">${health.toFixed(0)}</text>
+  <text x="105" y="122" text-anchor="middle" font-family="Manrope" font-size="11" fill="var(--ink-3)">RETENTION HEALTH</text>
+  <text x="105" y="140" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="var(--ink-2)">monthly churn ${churn.toFixed(1)}%</text>`;}
+function renderDonut(cur){const by={};cur.forEach(r=>by[r.ch]=(by[r.ch]||0)+r.adds);const tot=Object.values(by).reduce((a,b)=>a+b,0);const cols=['var(--s1)','var(--s2)','var(--s3)','var(--s4)','var(--s5)'];
+  const list=CH.map((c,i)=>({c,v:by[c]||0,col:cols[i]})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v);
+  let a0=-Math.PI/2,s='';const r=72,ri=48,cx=90,cy=90;
+  list.forEach(x=>{const a1=a0+x.v/tot*Math.PI*2;const gap=0.03;const p=arc(cx,cy,r,ri,a0+gap/2,a1-gap/2);s+=`<path d="${p}" fill="${x.col}" class="seg" data-c="${x.c}" data-v="${x.v}"/>`;a0=a1;});
+  s+=`<text x="${cx}" y="${cy-4}" text-anchor="middle" font-family="Space Grotesk" font-weight="700" font-size="22" fill="var(--ink)">${fmt(tot)}</text><text x="${cx}" y="${cy+14}" text-anchor="middle" font-size="10" fill="var(--ink-3)" font-family="Manrope">NEW SUBS</text>`;
+  const svg=$('#donut');svg.innerHTML=s;$('#dlist').innerHTML=list.map(x=>`<div class="dl"><i style="background:${x.col}"></i><span>${x.c}</span><span class="num">${fmt(x.v)}</span><span class="num">${(x.v/tot*100).toFixed(0)}%</span></div>`).join('');
+  const tip=$('#tipD');svg.querySelectorAll('.seg').forEach(g=>{g.addEventListener('mousemove',e=>{tip.innerHTML=`<b>${g.dataset.c}</b> · ${fmt(+g.dataset.v)} (${(+g.dataset.v/tot*100).toFixed(1)}%)`;const p=svg.parentElement.parentElement.getBoundingClientRect();tip.style.left=(e.clientX-p.left)+'px';tip.style.top=(e.clientY-p.top)+'px';tip.style.opacity=1;});g.addEventListener('mouseleave',()=>tip.style.opacity=0);});
+  $('#mixSub').textContent=`New subscribers by channel · last ${state.win} weeks · ${scopeLabel()}`;}
+function arc(cx,cy,r,ri,a0,a1){const p=(rr,a)=>[cx+rr*Math.cos(a),cy+rr*Math.sin(a)];const [x0,y0]=p(r,a0),[x1,y1]=p(r,a1),[x2,y2]=p(ri,a1),[x3,y3]=p(ri,a0);const big=a1-a0>Math.PI?1:0;return `M${x0},${y0} A${r},${r} 0 ${big} 1 ${x1},${y1} L${x2},${y2} A${ri},${ri} 0 ${big} 0 ${x3},${y3} Z`;}
+function renderAdds(){const n=state.win;const ws=[];for(let w=W-n;w<W;w++){const rs=rows.filter(r=>inScope(r)&&r.w===w);ws.push({w,adds:sum(rs,'adds'),churn:sum(rs,'churn')});}
+  const Wd=860,H=240,L=50,Rr=16,T=14,B=30;const mx=Math.max(...ws.map(x=>Math.max(x.adds,x.churn)))*1.1;const X=i=>L+(i+0.5)*(Wd-L-Rr)/n,Y=v=>T+(1-v/mx)*(H-T-B);const bw=Math.min(24,(Wd-L-Rr)/n*0.36);
+  let s='';for(let i=0;i<=4;i++){const v=mx*i/4;s+=`<line x1="${L}" x2="${Wd-Rr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${L-8}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="var(--ink-3)" font-family="JetBrains Mono">${fmt(v)}</text>`;}
+  ws.forEach((x,i)=>{const cx=X(i);s+=`<rect x="${cx-bw-1}" y="${Y(x.adds)}" width="${bw}" height="${Y(0)-Y(x.adds)}" fill="var(--s3)" rx="4"/><rect x="${cx+1}" y="${Y(x.churn)}" width="${bw}" height="${Y(0)-Y(x.churn)}" fill="var(--s2)" rx="4"/>`;if(n<=13||i%4===0)s+=`<text x="${cx}" y="${H-10}" text-anchor="middle" font-size="11" fill="var(--ink-3)" font-family="JetBrains Mono">W${String(x.w+1).padStart(2,'0')}</text>`;});
+  const pts=ws.map((x,i)=>[X(i),Y(x.adds-x.churn)]);s+=`<path d="${pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ')}" fill="none" stroke="var(--glow)" stroke-width="2" stroke-linejoin="round" style="filter:drop-shadow(0 0 6px rgba(79,216,255,.7))"/>`;pts.forEach(p=>s+=`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="var(--glow)" stroke="var(--surface)" stroke-width="2"/>`);
+  ws.forEach((x,i)=>{s+=`<rect x="${X(i)-(Wd-L-Rr)/n/2}" y="${T}" width="${(Wd-L-Rr)/n}" height="${H-T-B}" fill="transparent" class="hit" data-i="${i}"/>`;});
+  const svg=$('#adds');svg.innerHTML=s;const tip=$('#tipA');svg.querySelectorAll('.hit').forEach(h=>{h.addEventListener('mousemove',()=>{const x=ws[+h.dataset.i];tip.innerHTML=`<b>Week ${x.w+1}</b><br>Gross ${fmt(x.adds)} · Churn ${fmt(x.churn)} · Net ${fmt(x.adds-x.churn)}`;const r=svg.getBoundingClientRect();tip.style.left=(X(+h.dataset.i)/Wd*r.width)+'px';tip.style.top=(svg.offsetTop+Y(x.adds-x.churn)/H*r.height)+'px';tip.style.opacity=1;});h.addEventListener('mouseleave',()=>tip.style.opacity=0);});}
+function cohortRet(m){ // blended retention for scope at month m
+  const rs=rows.filter(inScope);const tot=sum(rs,'adds');let acc=0;rs.forEach(r=>{acc+=r.adds*ret[r.plan][m]*Math.pow(chQual[r.ch],m*0.35);});return Math.min(1,acc/tot);}
+function renderHeat(){const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'];const seq=['var(--seq1)','var(--seq2)','var(--seq3)','var(--seq4)','var(--seq5)','var(--seq6)'];
+  let h=`<div class="row"><span class="lab">Cohort</span>${[0,1,2,3,4,5,6,7].map(m=>`<span class="hdr">M${m}</span>`).join('')}</div>`;
+  months.forEach((mo,ci)=>{const rr=rng(100+ci);h+=`<div class="row"><span class="lab">${mo}</span>${[0,1,2,3,4,5,6,7].map(m=>{if(m>7-ci)return '<span></span>';const v=m===0?1:Math.min(0.995,cohortRet(m)*(1+(ci-3)*0.012)*(0.98+rr()*0.04));const idx=Math.min(5,Math.floor((1-v)/0.12));const light=idx>=3;return `<span class="cell ${light?'':'dim'}" style="background:${seq[5-idx]}" title="${mo} cohort, month ${m}">${(v*100).toFixed(0)}%</span>`;}).join('')}</div>`;});
+  $('#heat').innerHTML=h;$('#cohSub').textContent=`Share of each signup cohort still subscribed after N months · ${scopeLabel()}`;}
+function renderCurves(){const plans=state.plan==='all'?PLANS:[state.plan];const cols={Monthly:'var(--s1)',Annual:'var(--s3)',Family:'var(--s4)'};
+  const Wd=1300,H=230,L=50,Rr=80,T=14,B=30;const X=m=>L+m/7*(Wd-L-Rr),Y=v=>T+(1-v)*(H-T-B);let s='';
+  for(let i=0;i<=4;i++){const v=i/4;s+=`<line x1="${L}" x2="${Wd-Rr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${L-8}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="var(--ink-3)" font-family="JetBrains Mono">${(v*100).toFixed(0)}%</text>`;}
+  for(let m=0;m<=7;m++)s+=`<text x="${X(m)}" y="${H-10}" text-anchor="middle" font-size="11" fill="var(--ink-3)" font-family="JetBrains Mono">M${m}</text>`;
+  const q=state.ch==='all'?1:chQual[state.ch];
+  plans.forEach(p=>{const pts=ret[p].map((v,m)=>[X(m),Y(Math.min(1,v*Math.pow(q,m*0.35)))]);s+=`<path d="${pts.map((pt,i)=>(i?'L':'M')+pt[0].toFixed(1)+','+pt[1].toFixed(1)).join(' ')}" fill="none" stroke="${cols[p]}" stroke-width="2.5" stroke-linejoin="round"/>`;pts.forEach((pt,m)=>s+=`<circle cx="${pt[0]}" cy="${pt[1]}" r="4.5" fill="${cols[p]}" stroke="var(--surface)" stroke-width="2"><title>${p} · M${m} · ${(ret[p][m]*Math.pow(q,m*0.35)*100).toFixed(0)}%</title></circle>`);const e=pts[7];s+=`<text x="${e[0]+10}" y="${e[1]+4}" font-size="12" font-weight="600" fill="var(--ink)" font-family="Manrope">${p} ${(ret[p][7]*Math.pow(q,7*0.35)*100).toFixed(0)}%</text>`;});
+  $('#curves').innerHTML=s;$('#curveLeg').innerHTML=plans.map(p=>`<span><i style="background:${cols[p]}"></i>${p}</span>`).join('');}
+function renderAB(){const scopeN=Math.round(sum(rows.filter(r=>inScope(r)&&r.w>=W-state.win),'adds')*0.9);const nA=Math.max(400,Math.round(scopeN/2)),nB=nA;
+  const base=0.182*(state.ch==='Paid social'?0.9:state.ch==='Referral'?1.1:1)*(state.plan==='Annual'?1.15:1);const lift=state.mk==='IN'?0.03:state.mk==='DE'?0.09:0.065;const pA=base,pB=base*(1+lift);
+  const se=Math.sqrt(pA*(1-pA)/nA+pB*(1-pB)/nB);const z=(pB-pA)/se;const sig=Math.abs(z)>=1.96;const mx=Math.max(pA,pB)*1.25;
+  $('#ab').innerHTML=`<div class="var"><span>Control</span><div class="bar"><i style="width:${(pA/mx*100).toFixed(1)}%;background:var(--s1)"></i></div><span class="num">${(pA*100).toFixed(1)}% <span style="color:var(--ink-3)">n=${fmt(nA)}</span></span></div>
+  <div class="var"><span>Shelf</span><div class="bar"><i style="width:${(pB/mx*100).toFixed(1)}%;background:var(--glow-2)"></i><em style="left:${(pA/mx*100).toFixed(1)}%"></em></div><span class="num">${(pB*100).toFixed(1)}% <span style="color:var(--ink-3)">n=${fmt(nB)}</span></span></div>
+  <div class="verdict">${sig?`<b>Ship it.</b> The recommendation shelf lifts trial-to-paid conversion by <b>${pct(lift*100)}</b> relative (${((pB-pA)*100).toFixed(1)} pts), z = ${z.toFixed(2)}, p ${z>3.3?'< 0.001':'< 0.05'} — significant at 95% for ${scopeLabel()}.`:`<b>Inconclusive.</b> ${pct(lift*100)} relative lift but z = ${z.toFixed(2)} at n = ${fmt(nA)} per arm — keep the test running for ${scopeLabel()}.`}</div>`;}
+function renderInsight(cur,prev,adds,churn,pAdds,pChurn,cr,pcr){const by={};cur.forEach(r=>{by[r.ch]=by[r.ch]||{a:0,c:0};by[r.ch].a+=r.adds;by[r.ch].c+=r.churn;});const pb={};prev.forEach(r=>{pb[r.ch]=(pb[r.ch]||0)+r.adds;});
+  const chs=Object.keys(by).map(c=>({c,a:by[c].a,g:pb[c]?(by[c].a-pb[c])/pb[c]*100:0,cr:by[c].c/Math.max(1,by[c].a)})).sort((a,b)=>b.a-a.a);
+  const fastest=[...chs].sort((a,b)=>b.g-a.g)[0],leak=[...chs].sort((a,b)=>b.cr-a.cr)[0];
+  const byPlan={};cur.forEach(r=>{byPlan[r.plan]=(byPlan[r.plan]||0)+r.adds;});const topPlan=Object.entries(byPlan).sort((a,b)=>b[1]-a[1])[0];
+  const net=adds-churn,pnet=pAdds-pChurn;const netChg=(net-pnet)/Math.max(1,pnet)*100;
+  const lead=netChg>=5?`Growth is accelerating: net adds are up ${netChg.toFixed(0)}% over the previous ${state.win} weeks for ${scopeLabel()}.`:netChg<=-5?`Growth is slowing: net adds are down ${Math.abs(netChg).toFixed(0)}% versus the previous ${state.win} weeks for ${scopeLabel()}.`:`Growth is steady: net adds within ${Math.abs(netChg).toFixed(0)}% of the previous ${state.win} weeks for ${scopeLabel()}.`;
+  const ps=[];
+  if(chs.length>1)ps.push(`<b>${chs[0].c}</b> is the largest source (${(chs[0].a/adds*100).toFixed(0)}% of new subscribers); <b>${fastest.c}</b> is growing fastest at ${pct(fastest.g,0)}. Highest early churn comes from <b>${leak.c}</b> (${(leak.cr*100).toFixed(1)}% in-window) — worth a payback check before scaling spend there.`);
+  else ps.push(`Filtered to <b>${chs[0].c}</b>: ${fmt(chs[0].a)} new subscribers, ${pct(chs[0].g,0)} vs the previous window, in-window churn ${(chs[0].cr*100).toFixed(1)}%.`);
+  ps.push(`Monthly churn is ${cr.toFixed(1)}% (${(cr-pcr)>=0?'+':''}${(cr-pcr).toFixed(1)} pts). ${state.plan==='all'?`<b>${topPlan[0]}</b> plans account for ${(topPlan[1]/adds*100).toFixed(0)}% of adds; moving 5 pts of Monthly signups to Annual would lift month-6 retention of the blended cohort by roughly ${((ret.Annual[6]-ret.Monthly[6])*5).toFixed(1)} pts.`:`Month-6 retention for ${state.plan} sits at ${(ret[state.plan][6]*100).toFixed(0)}%.`}`);
+  ps.push(`Recommendation: ${leak.cr>0.09?`pause incremental ${leak.c} spend until its 90-day payback clears, and `:''}route the recommendation-shelf win into the onboarding flow for ${scopeLabel()}.`);
+  $('#insight').innerHTML=`<span class="tag">Insights · update with every filter</span><p class="lead">${lead}</p>`+ps.map(p=>`<p>${p}</p>`).join('')+`<div>${['plan','ch','mk'].map(k=>state[k]==='all'?'':`<span class="chip">${state[k]}</span>`).join('')}<span class="chip">${state.win} weeks</span></div>`;}
+['fPlan','fCh','fMkt'].forEach((id,i)=>$('#'+id).addEventListener('change',e=>{state[['plan','ch','mk'][i]]=e.target.value;render();}));
+$('#win').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{$('#win').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');state.win=+b.dataset.v;render();}));
+render();
+</script>

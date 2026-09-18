@@ -1,0 +1,341 @@
+<title>Freight Spend WBR</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#f5f4ef; --surface:#fcfcfb; --surface-2:#eeede7; --line:#dedcd3; --ink:#15171c; --ink-2:#4f5158; --ink-3:#7f818a;
+  --accent:#1c5cab; --accent-soft:#e3ecf8;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100;
+  --good:#008300; --good-bg:#e4f3e1; --warn:#b97a00; --warn-bg:#fbf0d3; --crit:#d0312f; --crit-bg:#fbe3e2;
+  --shadow:0 1px 2px rgba(20,23,28,.06),0 8px 24px rgba(20,23,28,.05);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141517; --surface:#1c1d20; --surface-2:#26272b; --line:#34353a; --ink:#f2f1ec; --ink-2:#c3c2b7; --ink-3:#8b8a83;
+  --accent:#6da7ec; --accent-soft:#1f2c3f; --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
+  --good:#5cc35c; --good-bg:#1c2e1c; --warn:#e6a93a; --warn-bg:#352b12; --crit:#f07472; --crit-bg:#3a1c1c;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35); color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#141517; --surface:#1c1d20; --surface-2:#26272b; --line:#34353a; --ink:#f2f1ec; --ink-2:#c3c2b7; --ink-3:#8b8a83;
+  --accent:#6da7ec; --accent-soft:#1f2c3f; --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
+  --good:#5cc35c; --good-bg:#1c2e1c; --warn:#e6a93a; --warn-bg:#352b12; --crit:#f07472; --crit-bg:#3a1c1c;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35); color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:14px;line-height:1.45;padding:0 20px;padding-block:18px 48px}
+h1,h2,h3{font-family:Sora,"IBM Plex Sans",sans-serif;margin:0;text-wrap:balance}
+.num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1360px;margin:0 auto;display:grid;gap:18px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+h1{font-size:26px;font-weight:700;letter-spacing:-.01em}
+.byline{color:var(--ink-2);font-size:13px}
+.byline b{color:var(--ink);font-weight:600}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.toolbar label{display:flex;flex-direction:column;gap:3px;font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+select,input[type=number]{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 9px;min-width:120px}
+input[type=number]{min-width:84px;font-family:"IBM Plex Mono",monospace}
+select:focus,input:focus,button:focus{outline:2px solid var(--accent);outline-offset:1px}
+.seg{display:inline-flex;background:var(--surface-2);border-radius:8px;padding:3px;gap:2px}
+.seg button{font:inherit;font-size:12px;font-weight:600;border:0;background:transparent;color:var(--ink-2);padding:5px 12px;border-radius:6px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(12,1fr)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.card h2{font-size:14px;font-weight:600;margin-bottom:2px}
+.card .sub{font-size:12px;color:var(--ink-3);margin-bottom:12px}
+.span-3{grid-column:span 3}.span-4{grid-column:span 4}.span-5{grid-column:span 5}.span-6{grid-column:span 6}.span-7{grid-column:span 7}.span-8{grid-column:span 8}.span-12{grid-column:span 12}
+@media (max-width:1000px){.span-3,.span-4{grid-column:span 6}.span-5,.span-7,.span-8{grid-column:span 12}}
+@media (max-width:600px){.span-3,.span-4,.span-6{grid-column:span 12}}
+/* KPI tiles */
+.kpis{display:grid;gap:12px;grid-template-columns:repeat(6,1fr)}
+@media (max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:600px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px 12px;display:grid;gap:6px;position:relative;overflow:hidden}
+.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--st)}
+.kpi .lbl{font-size:12px;color:var(--ink-2);font-weight:500}
+.kpi .val{font-size:26px;font-weight:600;letter-spacing:-.01em;line-height:1.1}
+.kpi .delta{font-size:12px;color:var(--ink-2)}
+.kpi .delta b{font-weight:600}
+.kpi svg{width:100%;height:34px;display:block}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;letter-spacing:.02em}
+.pill.good{background:var(--good-bg);color:var(--good)}.pill.warn{background:var(--warn-bg);color:var(--warn)}.pill.crit{background:var(--crit-bg);color:var(--crit)}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+/* parameters */
+.params{display:grid;gap:14px;grid-template-columns:repeat(4,1fr)}
+@media (max-width:1000px){.params{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.params{grid-template-columns:1fr}}
+.pgroup{display:grid;gap:8px;align-content:start}
+.pgroup h3{font-size:12px;font-weight:600;color:var(--ink-2);text-transform:uppercase;letter-spacing:.08em}
+.prow{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;font-size:13px}
+.prow .hint{font-size:11px;color:var(--ink-3);display:block}
+.prow input[type=number]{width:96px;min-width:0;text-align:right}
+.slider{display:grid;gap:4px;font-size:13px}
+.slider .top{display:flex;justify-content:space-between}
+.slider .top .num{color:var(--ink);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.wts{display:grid;gap:6px}
+.wt{display:grid;grid-template-columns:110px 1fr 40px;align-items:center;gap:8px;font-size:13px}
+.wt .num{text-align:right;color:var(--ink-2)}
+.wsum{font-size:12px;color:var(--ink-3)}
+.wsum.bad{color:var(--crit);font-weight:600}
+button.reset{font:inherit;font-size:12px;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:8px;padding:5px 10px;cursor:pointer}
+/* health */
+.health{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.gauge{width:150px;height:150px}
+.health .big{font-family:Sora,sans-serif;font-size:34px;font-weight:700;line-height:1}
+.health .rows{display:grid;gap:6px;font-size:13px}
+.hrow{display:grid;grid-template-columns:120px 1fr 44px 70px;align-items:center;gap:8px}
+.hrow .bar{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}
+.hrow .bar i{display:block;height:100%;border-radius:4px;background:var(--s1)}
+.hrow .num{text-align:right}
+/* commentary */
+.comm{display:grid;gap:10px;font-size:14px;line-height:1.55}
+.comm p{margin:0}
+.comm .lead{font-family:Sora,sans-serif;font-size:16px;font-weight:600}
+.comm .tag{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+/* charts */
+.chart{position:relative}
+.chart svg{width:100%;height:auto;display:block;overflow:visible}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--ink-2);margin-bottom:8px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:14px;height:3px;border-radius:2px;display:inline-block}
+.legend i.dot{width:9px;height:9px;border-radius:50%}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12px;padding:6px 9px;border-radius:8px;white-space:nowrap;transform:translate(-50%,calc(-100% - 10px));opacity:0;transition:opacity .12s}
+.tip b{font-weight:600}
+/* table */
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);font-weight:600;text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);cursor:pointer;white-space:nowrap}
+.tbl th.r,.tbl td.r{text-align:right}
+.tbl td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:0}
+.tbl .bar{display:inline-block;height:8px;border-radius:4px;background:var(--s1);vertical-align:middle;margin-right:6px}
+.tblwrap{overflow-x:auto}
+.foot{font-size:12px;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:6px 18px}
+.foot b{color:var(--ink-2);font-weight:600}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Transportation Controllership · Weekly Business Review</div>
+      <h1>Freight Spend WBR</h1>
+      <div class="byline">Prepared by <b>Amtul Saboor</b> · Senior Business Intelligence Engineer · Week <span id="wkLabel" class="num"></span></div>
+    </div>
+    <div class="toolbar" role="group" aria-label="Scope">
+      <label>Region<select id="fRegion"><option value="all">All regions</option><option>North America</option><option>Europe</option><option>Asia Pacific</option></select></label>
+      <label>Mode<select id="fMode"><option value="all">All modes</option><option>Truckload</option><option>LTL</option><option>Intermodal</option><option>Air</option></select></label>
+      <label>Carrier<select id="fCarrier"><option value="all">All carriers</option></select></label>
+      <label>Week<select id="fWeek"></select></label>
+      <label>Compare<div class="seg" id="cmp"><button aria-pressed="true" data-v="wow">WoW</button><button aria-pressed="false" data-v="yoy">YoY</button><button aria-pressed="false" data-v="tgt">vs Target</button></div></label>
+    </div>
+  </header>
+
+  <section class="kpis" id="kpis" aria-label="Key metrics"></section>
+
+  <section class="grid">
+    <div class="card span-8">
+      <h2>Parameters</h2>
+      <div class="sub">Targets, thresholds, what-if assumptions and score weights — every tile, chart and sentence below recalculates from these.</div>
+      <div class="params">
+        <div class="pgroup" id="pTargets"><h3>Targets</h3></div>
+        <div class="pgroup" id="pThresh"><h3>RAG thresholds</h3>
+          <div class="prow"><span>Amber when within <span class="hint">of target, red beyond</span></span><input type="number" id="thAmber" value="3" min="0" max="50" step="0.5"> </div>
+          <div class="prow"><span>Red beyond <span class="hint">% away from target</span></span><input type="number" id="thRed" value="8" min="0" max="80" step="0.5"></div>
+          <div class="prow"><span>Min. volume to show a lane <span class="hint">units this week</span></span><input type="number" id="thMinVol" value="5000" min="0" step="1000"></div>
+          <button class="reset" id="resetBtn" type="button">Reset all parameters</button>
+        </div>
+        <div class="pgroup"><h3>What-if (applies to selected week)</h3>
+          <div class="slider"><div class="top"><span>Diesel price change</span><span class="num" id="vFuel">0%</span></div><input type="range" id="wFuel" min="-30" max="40" value="0" step="1"></div>
+          <div class="slider"><div class="top"><span>Volume growth</span><span class="num" id="vVol">0%</span></div><input type="range" id="wVol" min="-25" max="40" value="0" step="1"></div>
+          <div class="slider"><div class="top"><span>Contract rate change</span><span class="num" id="vRate">0%</span></div><input type="range" id="wRate" min="-15" max="25" value="0" step="0.5"></div>
+          <div class="slider"><div class="top"><span>Intermodal shift from truckload</span><span class="num" id="vShift">0 pts</span></div><input type="range" id="wShift" min="0" max="30" value="0" step="1"></div>
+        </div>
+        <div class="pgroup"><h3>Network health weights</h3>
+          <div class="wts" id="wts"></div>
+          <div class="wsum" id="wsum"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card span-4">
+      <h2>Network health score</h2>
+      <div class="sub">Weighted attainment of the six KPIs against their targets</div>
+      <div class="health">
+        <svg class="gauge" viewBox="0 0 150 150" id="gauge"></svg>
+        <div class="rows" id="hrows"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card span-8 chart">
+      <h2>Cost per unit vs target</h2>
+      <div class="sub" id="cpuSub">Trailing 26 weeks, selected scope</div>
+      <div class="legend"><span><i style="background:var(--s1)"></i>Cost per unit</span><span><i style="background:var(--ink-3);height:1px"></i>Target</span><span><i class="dot" style="background:var(--s2)"></i>What-if (selected week)</span></div>
+      <svg id="trend" viewBox="0 0 860 260" role="img" aria-label="Cost per unit trend"></svg>
+      <div class="tip" id="tip1"></div>
+    </div>
+    <div class="card span-4">
+      <div class="comm" id="comm"><span class="tag">Auto-generated commentary</span></div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card span-5 chart">
+      <h2>Spend by mode</h2>
+      <div class="sub">Selected week · share of spend and change vs comparison</div>
+      <svg id="modes" viewBox="0 0 460 210" role="img" aria-label="Spend by mode"></svg>
+      <div class="tip" id="tip2"></div>
+    </div>
+    <div class="card span-7">
+      <h2>Lane watchlist</h2>
+      <div class="sub" id="laneSub">Lanes ranked by variance to target · click a header to sort</div>
+      <div class="tblwrap"><table class="tbl" id="lanes"><thead><tr>
+        <th data-k="lane">Lane</th><th data-k="mode">Mode</th><th class="r" data-k="units">Units</th><th class="r" data-k="spend">Spend</th><th class="r" data-k="cpu">Cost / unit</th><th class="r" data-k="var">Var. to target</th><th class="r" data-k="otd">On-time</th><th>Status</th>
+      </tr></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <div class="foot"><span><b>Data</b> simulated freight network (24 lanes, 4 modes, 6 carriers, 78 weeks) generated with a fixed seed; structure mirrors BTS Freight Analysis Framework lane / mode reporting. No confidential data.</span><span><b>Method</b> cost per unit = spend ÷ units; variance = (actual − target) ÷ target; health = Σ weight × min(1, attainment).</span></div>
+</div>
+
+<script>
+// ---------- seeded data ----------
+function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+const R=rng(20260914);
+const REGIONS=['North America','Europe','Asia Pacific'];
+const MODES=['Truckload','LTL','Intermodal','Air'];
+const CARRIERS=['Northwind Freight','Atlas Logistics','Meridian Carriers','BlueLine Express','Pacific Rail Co','Skyway Cargo'];
+const LANE_DEFS=[];
+const cities={'North America':['DFW','ORD','ATL','LAX','SEA','EWR','MEM','PHX'],'Europe':['FRA','MAD','WAW','MXP','AMS','LHR'],'Asia Pacific':['SIN','NRT','SYD','DEL','ICN','HKG']};
+REGIONS.forEach(rg=>{const c=cities[rg];for(let i=0;i<8;i++){const a=c[Math.floor(R()*c.length)];let b=c[Math.floor(R()*c.length)];while(b===a)b=c[Math.floor(R()*c.length)];
+  const mr=R();const mode=mr<0.45?'Truckload':mr<0.72?'LTL':mr<0.9?'Intermodal':'Air';if(LANE_DEFS.find(l=>l.lane===a+'→'+b))continue;
+  LANE_DEFS.push({lane:a+'→'+b,region:rg,mode,carrier:CARRIERS[mode==='Intermodal'?4:mode==='Air'?5:Math.floor(R()*4)],baseUnits:Math.round(8000+R()*40000),baseCpu:{Truckload:3.1,LTL:4.6,Intermodal:2.3,Air:9.8}[mode]*(0.88+R()*0.24),fuelShare:{Truckload:.32,LTL:.28,Intermodal:.18,Air:.42}[mode],otd:0.9+R()*0.08,dmg:0.2+R()*0.5});}});
+const WEEKS=78; // weekly rows per lane
+const rows=[];
+for(let w=0;w<WEEKS;w++){const season=1+0.12*Math.sin((w/52)*Math.PI*2-1.2)+(w%52>44?0.18:0);const drift=1+w*0.0018;const fuel=1+0.10*Math.sin(w/9)+0.04*Math.sin(w/3.3);
+  LANE_DEFS.forEach(l=>{const units=Math.round(l.baseUnits*season*(0.9+R()*0.2)*(1+w*0.002));const cpu=l.baseCpu*drift*(1+l.fuelShare*(fuel-1))*(0.96+R()*0.08);
+    rows.push({w,lane:l.lane,region:l.region,mode:l.mode,carrier:l.carrier,units,spend:units*cpu,otd:Math.min(0.995,l.otd+(R()-0.5)*0.04-(w%52>46?0.03:0)),dmg:Math.max(0.05,l.dmg+(R()-0.5)*0.15),invAcc:0.96+R()*0.035,dso:Math.round(38+R()*9+(w%52>44?3:0)),fuelShare:l.fuelShare});});}
+const W0=new Date(2025,2,3); // week 1 Monday
+const weekLabel=w=>{const d=new Date(W0);d.setDate(d.getDate()+w*7);return 'W'+String((w%52)+1).padStart(2,'0')+' · '+d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'2-digit'});};
+
+// ---------- KPI definitions ----------
+const KPIS=[
+  {k:'cpu',label:'Cost per unit',unit:'$',dec:2,dir:'low',target:3.90,fmt:v=>'$'+v.toFixed(2)},
+  {k:'spend',label:'Total spend',unit:'$M',dec:2,dir:'low',target:3.40,fmt:v=>'$'+v.toFixed(2)+'M'},
+  {k:'units',label:'Units shipped',unit:'k',dec:0,dir:'high',target:820,fmt:v=>Math.round(v).toLocaleString()+'k'},
+  {k:'otd',label:'On-time delivery',unit:'%',dec:1,dir:'high',target:95.0,fmt:v=>v.toFixed(1)+'%'},
+  {k:'dmg',label:'Damage rate',unit:'%',dec:2,dir:'low',target:0.45,fmt:v=>v.toFixed(2)+'%'},
+  {k:'dso',label:'Days to settle invoice',unit:'d',dec:1,dir:'low',target:40,fmt:v=>v.toFixed(1)+' d'},
+];
+const DEF_W={cpu:30,spend:15,units:15,otd:20,dmg:10,dso:10};
+(function calibrate(){const all=w=>{const rs=rows.filter(r=>r.w===w);const u=rs.reduce((a,r)=>a+r.units,0),s=rs.reduce((a,r)=>a+r.spend,0);const wa=k=>rs.reduce((a,r)=>a+r[k]*r.units,0)/u;return {cpu:s/u,spend:s/1e6,units:u/1000,otd:wa('otd')*100,dmg:wa('dmg'),dso:wa('dso')};};
+  const ws=[];for(let w=WEEKS-27;w<WEEKS-1;w++)ws.push(all(w));const mean=k=>ws.reduce((a,x)=>a+x[k],0)/ws.length;
+  const set=(k,v,d)=>{const kp=KPIS.find(x=>x.k===k);kp.target=+v.toFixed(d);};
+  set('cpu',mean('cpu')*0.985,2);set('spend',mean('spend')*1.0,2);set('units',mean('units')*1.03,0);set('otd',mean('otd')+0.6,1);set('dmg',mean('dmg')*1.05,2);set('dso',mean('dso')-1.5,1);})();
+const state={region:'all',mode:'all',carrier:'all',week:WEEKS-1,cmp:'wow',targets:Object.fromEntries(KPIS.map(k=>[k.k,k.target])),amber:3,red:8,minVol:5000,fuel:0,vol:0,rate:0,shift:0,w:{...DEF_W},sort:{k:'var',d:-1}};
+
+// ---------- aggregation ----------
+function scope(r){return (state.region==='all'||r.region===state.region)&&(state.mode==='all'||r.mode===state.mode)&&(state.carrier==='all'||r.carrier===state.carrier);}
+function whatIf(r,apply){if(!apply)return r;const fuelMult=1+r.fuelShare*(state.fuel/100);const rateMult=1+state.rate/100;let units=r.units*(1+state.vol/100);let spend=r.spend*fuelMult*rateMult*(1+state.vol/100);
+  if(state.shift>0&&r.mode==='Truckload'){const moved=units*state.shift/100;const cpu=spend/units;spend=spend-moved*cpu+moved*cpu*0.72;}
+  return {...r,units,spend};}
+function agg(w,apply){const rs=rows.filter(r=>r.w===w&&scope(r)).map(r=>whatIf(r,apply));if(!rs.length)return null;const units=rs.reduce((a,r)=>a+r.units,0),spend=rs.reduce((a,r)=>a+r.spend,0);
+  const wavg=k=>rs.reduce((a,r)=>a+r[k]*r.units,0)/units;
+  return {cpu:spend/units,spend:spend/1e6,units:units/1000,otd:wavg('otd')*100,dmg:wavg('dmg'),dso:wavg('dso'),rows:rs};}
+function status(k,v){const t=state.targets[k.k];const dev=(v-t)/t*100*(k.dir==='low'?1:-1);if(dev<=state.amber)return 'good';if(dev<=state.red)return 'warn';return 'crit';}
+function attain(k,v){const t=state.targets[k.k];return k.dir==='low'?Math.min(1.25,t/v):Math.min(1.25,v/t);}
+
+// ---------- rendering ----------
+const $=s=>document.querySelector(s);
+const fmtPct=(v,d=1)=>(v>0?'+':'')+v.toFixed(d)+'%';
+function render(){
+  const cur=agg(state.week,true),base=agg(state.week,false);
+  const prevW=state.cmp==='yoy'?state.week-52:state.week-1;const prev=prevW>=0?agg(prevW,false):null;
+  $('#wkLabel').textContent=weekLabel(state.week);
+  // KPI tiles
+  $('#kpis').innerHTML=KPIS.map(k=>{const v=cur[k.k];const st=status(k,v);let d='';
+    if(state.cmp==='tgt'){const dv=(v-state.targets[k.k])/state.targets[k.k]*100;d=`<b>${fmtPct(dv)}</b> vs target ${k.fmt(state.targets[k.k])}`;}
+    else if(prev){const dv=(v-prev[k.k])/prev[k.k]*100;d=`<b>${fmtPct(dv)}</b> ${state.cmp==='yoy'?'YoY':'WoW'} · target ${k.fmt(state.targets[k.k])}`;}
+    const hist=[];for(let w=Math.max(0,state.week-12);w<=state.week;w++){const a=w===state.week?cur:agg(w,false);hist.push(a?a[k.k]:null);}
+    const mn=Math.min(...hist),mx=Math.max(...hist);const pts=hist.map((h,i)=>[i/(hist.length-1)*200,30-(mx===mn?15:(h-mn)/(mx-mn)*26)-2]);
+    const path=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+    const last=pts[pts.length-1];
+    return `<div class="kpi" style="--st:var(--${st})"><div class="lbl">${k.label}</div><div class="val num">${k.fmt(v)}</div><div class="delta">${d}</div>
+      <svg viewBox="0 0 200 34" preserveAspectRatio="none"><path d="${path} L200,34 L0,34 Z" fill="var(--s1)" opacity=".1"/><path d="${path}" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><circle cx="${last[0]}" cy="${last[1]}" r="4" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/></svg>
+      <span class="pill ${st}">${st==='good'?'On track':st==='warn'?'Watch':'Off track'}</span></div>`;}).join('');
+  renderHealth(cur);renderTrend(cur,base);renderModes(cur,prev);renderLanes(cur,prev);renderComm(cur,base,prev);
+}
+function renderHealth(cur){const total=Object.values(state.w).reduce((a,b)=>a+b,0);const ws=$('#wsum');ws.textContent=`Weights sum to ${total}${total===100?'':' — rescaled to 100 for scoring'}`;ws.className='wsum'+(total===100?'':' bad');
+  let score=0;const parts=KPIS.map(k=>{const a=Math.min(1,attain(k,cur[k.k]));const w=state.w[k.k]/total;score+=a*w*100;return {k,a,w};});
+  const col=score>=90?'var(--good)':score>=80?'var(--warn)':'var(--crit)';const r=58,c=2*Math.PI*r;
+  $('#gauge').innerHTML=`<circle cx="75" cy="75" r="${r}" fill="none" stroke="var(--surface-2)" stroke-width="14"/><circle cx="75" cy="75" r="${r}" fill="none" stroke="${col}" stroke-width="14" stroke-linecap="round" stroke-dasharray="${(c*score/100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 75 75)"/><text x="75" y="72" text-anchor="middle" font-family="Sora" font-weight="700" font-size="34" fill="var(--ink)">${score.toFixed(0)}</text><text x="75" y="94" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-3)">of 100</text>`;
+  $('#hrows').innerHTML=parts.map(p=>`<div class="hrow"><span>${p.k.label}</span><div class="bar"><i style="width:${(p.a*100).toFixed(0)}%;background:var(--${status(p.k,cur[p.k.k])})"></i></div><span class="num">${(p.a*100).toFixed(0)}%</span><span class="num" style="color:var(--ink-3)">w ${(p.w*100).toFixed(0)}%</span></div>`).join('');
+}
+function renderTrend(cur,base){const N=26;const xs=[],ys=[];for(let w=state.week-N+1;w<=state.week;w++){const a=w<0?null:agg(w,false);xs.push(w);ys.push(a?a.cpu:null);}
+  const t=state.targets.cpu;const vals=ys.filter(v=>v!=null).concat([t,cur.cpu]);const lo=Math.min(...vals)*0.96,hi=Math.max(...vals)*1.04;
+  const L=54,Rr=20,T=14,B=36,Wd=860,H=260;const X=i=>L+i/(N-1)*(Wd-L-Rr),Y=v=>T+(1-(v-lo)/(hi-lo))*(H-T-B);
+  let g='';const ticks=4;for(let i=0;i<=ticks;i++){const v=lo+(hi-lo)*i/ticks;g+=`<line x1="${L}" x2="${Wd-Rr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${L-8}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="var(--ink-3)" font-family="IBM Plex Mono">$${v.toFixed(2)}</text>`;}
+  xs.forEach((w,i)=>{if(i%5===0||i===N-1)g+=`<text x="${X(i)}" y="${H-12}" text-anchor="middle" font-size="11" fill="var(--ink-3)" font-family="IBM Plex Mono">${w<0?'':'W'+String((w%52)+1).padStart(2,'0')}</text>`;});
+  const pts=ys.map((v,i)=>v==null?null:[X(i),Y(v)]).filter(Boolean);const d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+  const area=d+` L${pts[pts.length-1][0]},${Y(lo)} L${pts[0][0]},${Y(lo)} Z`;
+  const st=status(KPIS[0],cur.cpu);
+  let s=`${g}<line x1="${L}" x2="${Wd-Rr}" y1="${Y(t)}" y2="${Y(t)}" stroke="var(--ink-3)" stroke-width="1.5"/><text x="${Wd-Rr}" y="${Y(t)-6}" text-anchor="end" font-size="11" fill="var(--ink-2)" font-family="IBM Plex Sans">Target $${t.toFixed(2)}</text>
+    <path d="${area}" fill="var(--s1)" opacity=".1"/><path d="${d}" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+  const last=pts[pts.length-1];
+  s+=`<circle cx="${last[0]}" cy="${last[1]}" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>`;
+  if(Math.abs(cur.cpu-base.cpu)>0.0005){s+=`<line x1="${last[0]}" x2="${last[0]}" y1="${last[1]}" y2="${Y(cur.cpu)}" stroke="var(--s2)" stroke-dasharray="3 3"/><circle cx="${last[0]}" cy="${Y(cur.cpu)}" r="6" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/><text x="${last[0]-10}" y="${Y(cur.cpu)+4}" text-anchor="end" font-size="12" font-weight="600" fill="var(--ink)" font-family="IBM Plex Mono">$${cur.cpu.toFixed(2)} what-if</text>`;}
+  else s+=`<text x="${last[0]-10}" y="${last[1]-10}" text-anchor="end" font-size="12" font-weight="600" fill="var(--ink)" font-family="IBM Plex Mono">$${cur.cpu.toFixed(2)}</text>`;
+  // hover targets
+  pts.forEach((p,i)=>{s+=`<rect x="${p[0]-((Wd-L-Rr)/(N-1))/2}" y="${T}" width="${(Wd-L-Rr)/(N-1)}" height="${H-T-B}" fill="transparent" data-i="${i}" class="hit"/>`;});
+  const svg=$('#trend');svg.innerHTML=s;svg.querySelector('#cpuSub');$('#cpuSub').textContent=`Trailing 26 weeks · ${scopeLabel()} · currently ${st==='good'?'on track':st==='warn'?'watch':'off track'}`;
+  const tip=$('#tip1');svg.querySelectorAll('.hit').forEach(h=>{h.addEventListener('mousemove',e=>{const i=+h.dataset.i;const w=xs[i];const v=ys[i];tip.innerHTML=`<b>${weekLabel(w)}</b><br>Cost per unit $${v.toFixed(2)} · ${fmtPct((v-t)/t*100)} vs target`;const r=svg.getBoundingClientRect();const p=pts[i];tip.style.left=(p[0]/Wd*r.width)+'px';tip.style.top=(p[1]/H*r.height+ (svg.offsetTop))+'px';tip.style.opacity=1;});h.addEventListener('mouseleave',()=>tip.style.opacity=0);});
+}
+function renderModes(cur,prev){const by={};cur.rows.forEach(r=>{by[r.mode]=by[r.mode]||{spend:0,units:0};by[r.mode].spend+=r.spend;by[r.mode].units+=r.units;});
+  const pb={};if(prev)prev.rows.forEach(r=>{pb[r.mode]=(pb[r.mode]||0)+r.spend;});
+  const total=Object.values(by).reduce((a,b)=>a+b.spend,0);const modes=MODES.filter(m=>by[m]);const cols=['var(--s1)','var(--s2)','var(--s3)','var(--s4)'];
+  const Wd=460,H=210,L=110,Rr=90,rowH=Math.min(40,(H-30)/modes.length);let s='';const maxS=Math.max(...modes.map(m=>by[m].spend));
+  modes.forEach((m,i)=>{const y=16+i*rowH;const w=(by[m].spend/maxS)*(Wd-L-Rr);const d=pb[m]?(by[m].spend-pb[m])/pb[m]*100:null;
+    s+=`<text x="${L-10}" y="${y+rowH/2+4}" text-anchor="end" font-size="12" fill="var(--ink-2)" font-family="IBM Plex Sans">${m}</text><rect x="${L}" y="${y+rowH/2-10}" width="${w.toFixed(1)}" height="20" rx="0" fill="${cols[MODES.indexOf(m)]}" class="mbar" data-m="${m}"/><rect x="${L+w-4}" y="${y+rowH/2-10}" width="4" height="20" rx="4" fill="${cols[MODES.indexOf(m)]}"/>
+      <text x="${L+w+8}" y="${y+rowH/2+4}" font-size="12" font-weight="600" fill="var(--ink)" font-family="IBM Plex Mono">${(by[m].spend/total*100).toFixed(0)}%</text><text x="${Wd-2}" y="${y+rowH/2+4}" text-anchor="end" font-size="11" fill="var(--ink-3)" font-family="IBM Plex Mono">${d==null?'—':fmtPct(d)}</text>`;});
+  s+=`<text x="${Wd-2}" y="${H-4}" text-anchor="end" font-size="10" fill="var(--ink-3)" font-family="IBM Plex Sans">${state.cmp==='yoy'?'YoY':'WoW'} change</text>`;
+  const svg=$('#modes');svg.innerHTML=s;const tip=$('#tip2');svg.querySelectorAll('.mbar').forEach(b=>{b.addEventListener('mousemove',e=>{const m=b.dataset.m;tip.innerHTML=`<b>${m}</b><br>$${(by[m].spend/1e6).toFixed(2)}M · ${Math.round(by[m].units/1000)}k units · $${(by[m].spend/by[m].units).toFixed(2)}/unit`;const r=svg.getBoundingClientRect();tip.style.left=(e.clientX-r.left)+'px';tip.style.top=(e.clientY-r.top+svg.offsetTop)+'px';tip.style.opacity=1;});b.addEventListener('mouseleave',()=>tip.style.opacity=0);});
+}
+function renderLanes(cur,prev){const t=state.targets.cpu;const lanes=cur.rows.filter(r=>r.units>=state.minVol).map(r=>({lane:r.lane,mode:r.mode,units:r.units,spend:r.spend,cpu:r.spend/r.units,var:(r.spend/r.units-t)/t*100,otd:r.otd*100}));
+  const {k,d}=state.sort;lanes.sort((a,b)=>(a[k]>b[k]?1:-1)*d);const maxU=Math.max(...lanes.map(l=>l.units));
+  $('#laneSub').textContent=`${lanes.length} lanes above ${state.minVol.toLocaleString()} units · sorted by ${{lane:'lane',mode:'mode',units:'units',spend:'spend',cpu:'cost per unit',var:'variance to target',otd:'on-time'}[k]}`;
+  $('#lanes tbody').innerHTML=lanes.slice(0,12).map(l=>{const st=l.var<=state.amber?'good':l.var<=state.red?'warn':'crit';return `<tr><td><b>${l.lane}</b></td><td>${l.mode}</td><td class="r num" style="white-space:nowrap"><span class="bar" style="width:${(l.units/maxU*60).toFixed(0)}px"></span>${l.units.toLocaleString()}</td><td class="r num">$${(l.spend/1e3).toFixed(0)}k</td><td class="r num">$${l.cpu.toFixed(2)}</td><td class="r num">${fmtPct(l.var)}</td><td class="r num">${l.otd.toFixed(1)}%</td><td><span class="pill ${st}">${st==='good'?'On track':st==='warn'?'Watch':'Off track'}</span></td></tr>`;}).join('');
+}
+function scopeLabel(){const p=[];if(state.region!=='all')p.push(state.region);if(state.mode!=='all')p.push(state.mode);if(state.carrier!=='all')p.push(state.carrier);return p.length?p.join(' · '):'all regions, modes and carriers';}
+function renderComm(cur,base,prev){const t=state.targets;const c=$('#comm');const st=status(KPIS[0],cur.cpu);const cmpName=state.cmp==='yoy'?'year over year':'week over week';
+  const worst=KPIS.map(k=>({k,dev:(cur[k.k]-t[k.k])/t[k.k]*100*(k.dir==='low'?1:-1)})).sort((a,b)=>b.dev-a.dev)[0];
+  const best=KPIS.map(k=>({k,dev:(cur[k.k]-t[k.k])/t[k.k]*100*(k.dir==='low'?1:-1)})).sort((a,b)=>a.dev-b.dev)[0];
+  const lanes=cur.rows.filter(r=>r.units>=state.minVol).map(r=>({lane:r.lane,cpu:r.spend/r.units,units:r.units,mode:r.mode})).sort((a,b)=>(b.cpu-t.cpu)*b.units-(a.cpu-t.cpu)*a.units);
+  const top=lanes[0];const topImpact=top?((top.cpu-t.cpu)*top.units/1e3):0;
+  const chg=prev?(cur.cpu-prev.cpu)/prev.cpu*100:null;
+  const wi=(state.fuel||state.vol||state.rate||state.shift);
+  let lead=st==='good'?`Cost per unit is on track at $${cur.cpu.toFixed(2)} for ${scopeLabel()}.`:st==='warn'?`Cost per unit is ${fmtPct((cur.cpu-t.cpu)/t.cpu*100)} above target — inside the amber band, worth watching.`:`Cost per unit is ${fmtPct((cur.cpu-t.cpu)/t.cpu*100)} above target and outside the ${state.red}% red threshold.`;
+  const ps=[];
+  if(chg!=null)ps.push(`Spend moved ${fmtPct((cur.spend-prev.spend)/prev.spend*100)} ${cmpName} to $${cur.spend.toFixed(2)}M on ${Math.round(cur.units)}k units; unit cost ${chg>=0?'rose':'fell'} ${Math.abs(chg).toFixed(1)}%${Math.abs(chg)>3?', which is the main driver of the variance':''}.`);
+  ps.push(`Strongest KPI: <b>${best.k.label}</b> (${best.k.fmt(cur[best.k.k])}, ${fmtPct(-best.dev)} better than target). Weakest: <b>${worst.k.label}</b> (${worst.k.fmt(cur[worst.k.k])}, ${fmtPct(worst.dev)} ${worst.k.dir==='low'?'over':'under'}).`);
+  if(top&&top.cpu>t.cpu)ps.push(`Largest lane opportunity is <b>${top.lane}</b> (${top.mode}) at $${top.cpu.toFixed(2)}/unit — bringing it to target is worth about $${topImpact.toFixed(0)}k this week alone.`);
+  if(wi){const dv=(cur.cpu-base.cpu)/base.cpu*100;ps.push(`<b>What-if:</b> with ${[state.fuel?`diesel ${fmtPct(state.fuel,0)}`:'',state.vol?`volume ${fmtPct(state.vol,0)}`:'',state.rate?`rates ${fmtPct(state.rate,1)}`:'',state.shift?`${state.shift} pts shifted to intermodal`:''].filter(Boolean).join(', ')}, cost per unit ${dv>=0?'rises':'falls'} ${Math.abs(dv).toFixed(1)}% to $${cur.cpu.toFixed(2)} and spend lands at $${cur.spend.toFixed(2)}M (${fmtPct((cur.spend-base.spend)/base.spend*100)}).`);}
+  else ps.push(`No what-if assumptions applied — drag a slider to see the projected effect on this week.`);
+  c.innerHTML=`<span class="tag">Auto-generated commentary · ${weekLabel(state.week)}</span><p class="lead">${lead}</p>`+ps.map(p=>`<p>${p}</p>`).join('');
+}
+
+// ---------- controls ----------
+function buildControls(){const cs=$('#fCarrier');CARRIERS.forEach(c=>{const o=document.createElement('option');o.textContent=c;cs.appendChild(o);});
+  const ws=$('#fWeek');for(let w=WEEKS-1;w>=26;w--){const o=document.createElement('option');o.value=w;o.textContent=weekLabel(w);ws.appendChild(o);}
+  $('#pTargets').innerHTML='<h3>Targets</h3>'+KPIS.map(k=>`<div class="prow"><span>${k.label} <span class="hint">${k.dir==='low'?'lower is better':'higher is better'} · ${k.unit}</span></span><input type="number" step="${k.dec?Math.pow(10,-k.dec):1}" id="t_${k.k}" value="${k.target}"></div>`).join('');
+  $('#wts').innerHTML=KPIS.map(k=>`<div class="wt"><span>${k.label}</span><input type="range" min="0" max="60" value="${DEF_W[k.k]}" id="w_${k.k}"><span class="num" id="wv_${k.k}">${DEF_W[k.k]}</span></div>`).join('');
+  ['fRegion','fMode','fCarrier'].forEach(id=>$('#'+id).addEventListener('change',e=>{state[id.slice(1).toLowerCase()]=e.target.value;render();}));
+  $('#fWeek').addEventListener('change',e=>{state.week=+e.target.value;render();});
+  $('#cmp').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{$('#cmp').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');state.cmp=b.dataset.v;render();}));
+  KPIS.forEach(k=>{$('#t_'+k.k).addEventListener('input',e=>{const v=parseFloat(e.target.value);if(v>0){state.targets[k.k]=v;render();}});$('#w_'+k.k).addEventListener('input',e=>{state.w[k.k]=+e.target.value;$('#wv_'+k.k).textContent=e.target.value;render();});});
+  $('#thAmber').addEventListener('input',e=>{state.amber=+e.target.value;render();});$('#thRed').addEventListener('input',e=>{state.red=+e.target.value;render();});$('#thMinVol').addEventListener('input',e=>{state.minVol=+e.target.value||0;render();});
+  const sl=[['wFuel','fuel','vFuel',v=>fmtPct(v,0)],['wVol','vol','vVol',v=>fmtPct(v,0)],['wRate','rate','vRate',v=>fmtPct(v,1)],['wShift','shift','vShift',v=>v+' pts']];
+  sl.forEach(([id,k,lab,f])=>$('#'+id).addEventListener('input',e=>{state[k]=+e.target.value;$('#'+lab).textContent=f(+e.target.value);render();}));
+  $('#lanes thead').addEventListener('click',e=>{const th=e.target.closest('th');if(!th)return;const k=th.dataset.k;state.sort=state.sort.k===k?{k,d:-state.sort.d}:{k,d:['lane','mode'].includes(k)?1:-1};render();});
+  $('#resetBtn').addEventListener('click',()=>{KPIS.forEach(k=>{state.targets[k.k]=k.target;$('#t_'+k.k).value=k.target;state.w[k.k]=DEF_W[k.k];$('#w_'+k.k).value=DEF_W[k.k];$('#wv_'+k.k).textContent=DEF_W[k.k];});state.amber=3;state.red=8;state.minVol=5000;$('#thAmber').value=3;$('#thRed').value=8;$('#thMinVol').value=5000;sl.forEach(([id,k,lab,f])=>{state[k]=0;$('#'+id).value=0;$('#'+lab).textContent=f(0);});render();});
+}
+buildControls();render();
+</script>

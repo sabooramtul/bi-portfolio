@@ -1,0 +1,172 @@
+<title>Hospital Margin & Quality</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f1f6f5; --surface:#ffffff; --surface-2:#e5eeec; --line:#cfdedb; --ink:#12201e; --ink-2:#44605b; --ink-3:#7a938e;
+  --accent:#0f766e; --accent-soft:#d6efe9;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4;
+  --good:#008300; --good-bg:#e1f2dd; --warn:#b97a00; --warn-bg:#faefcf; --crit:#d0312f; --crit-bg:#fbe1e0;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1716; --surface:#17211f; --surface-2:#1f2c29; --line:#2f403c; --ink:#eaf3f1; --ink-2:#b3c7c2; --ink-3:#7c928d;
+  --accent:#4fd1c0; --accent-soft:#183531; --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181;
+  --good:#5cc35c; --good-bg:#1a2e1a; --warn:#e6a93a; --warn-bg:#342a10; --crit:#f07472; --crit-bg:#3a1c1c; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#0f1716; --surface:#17211f; --surface-2:#1f2c29; --line:#2f403c; --ink:#eaf3f1; --ink-2:#b3c7c2; --ink-3:#7c928d;
+  --accent:#4fd1c0; --accent-soft:#183531; --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181;
+  --good:#5cc35c; --good-bg:#1a2e1a; --warn:#e6a93a; --warn-bg:#342a10; --crit:#f07472; --crit-bg:#3a1c1c; color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:"Nunito Sans",system-ui,sans-serif;font-size:14px;line-height:1.45;padding:0 20px;padding-block:18px 48px}
+h1,h2,h3{font-family:Outfit,sans-serif;margin:0;text-wrap:balance}
+.num{font-family:"DM Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1360px;margin:0 auto;display:grid;gap:18px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-size:28px;font-weight:700;letter-spacing:-.01em}
+.byline{color:var(--ink-2);font-size:13px}.byline b{color:var(--ink);font-weight:700}
+.filters{display:flex;flex-wrap:wrap;gap:10px}
+.filters label{display:flex;flex-direction:column;gap:3px;font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 9px;min-width:150px}
+select:focus,button:focus{outline:2px solid var(--accent);outline-offset:1px}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(12,1fr)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative}
+.card h2{font-size:15px;font-weight:600}.card .sub{font-size:12px;color:var(--ink-3);margin-bottom:10px}
+.span-3{grid-column:span 3}.span-4{grid-column:span 4}.span-5{grid-column:span 5}.span-6{grid-column:span 6}.span-7{grid-column:span 7}.span-8{grid-column:span 8}.span-12{grid-column:span 12}
+@media (max-width:1000px){.span-3,.span-4{grid-column:span 6}.span-5,.span-7,.span-8{grid-column:span 12}}
+@media (max-width:600px){.span-3,.span-4,.span-6{grid-column:span 12}}
+.kpis{display:grid;gap:12px;grid-template-columns:repeat(5,1fr)}
+@media (max-width:1000px){.kpis{grid-template-columns:repeat(3,1fr)}}@media (max-width:600px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:4px}
+.kpi .l{font-size:12px;color:var(--ink-2);font-weight:600}.kpi .v{font-family:Outfit;font-size:28px;font-weight:700;line-height:1.1}
+.kpi .d{font-size:12px;color:var(--ink-2)}.up{color:var(--good)}.down{color:var(--crit)}
+.kpi .bench{font-size:11px;color:var(--ink-3)}
+.chart svg{width:100%;height:auto;display:block;overflow:visible}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12px;padding:6px 9px;border-radius:8px;white-space:nowrap;transform:translate(-50%,calc(-100% - 10px));opacity:0;transition:opacity .12s;z-index:2}
+.tip b{font-weight:700}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--ink-2);margin-bottom:6px}
+.legend span{display:inline-flex;align-items:center;gap:6px}.legend i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.donut-wrap{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center}
+.dl{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:center;font-size:13px;margin-bottom:5px}.dl i{width:10px;height:10px;border-radius:50%}.dl .num{color:var(--ink-2)}
+.bullets{display:grid;gap:12px}
+.bullet{display:grid;grid-template-columns:190px 1fr 70px;gap:10px;align-items:center;font-size:13px}
+.bullet .track{position:relative;height:18px;background:var(--surface-2);border-radius:4px}
+.bullet .band{position:absolute;top:0;bottom:0;background:var(--accent-soft);border-radius:4px}
+.bullet .bar{position:absolute;top:5px;height:8px;border-radius:4px;left:0}
+.bullet .mark{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink)}
+.bullet .val{text-align:right}
+.bullet .l small{display:block;color:var(--ink-3);font-size:11px}
+.insight{display:grid;gap:10px;line-height:1.55}.insight p{margin:0}.insight .lead{font-family:Outfit;font-size:17px;font-weight:600}
+.insight .tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px}
+.pill.good{background:var(--good-bg);color:var(--good)}.pill.warn{background:var(--warn-bg);color:var(--warn)}.pill.crit{background:var(--crit-bg);color:var(--crit)}
+.foot{font-size:12px;color:var(--ink-3)}.foot b{color:var(--ink-2)}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Health system finance · Quality measures</div>
+      <h1>Hospital Margin &amp; Quality</h1>
+      <div class="byline">Prepared by <b>Amtul Saboor</b> · where the operating margin comes from, and whether quality is keeping pace</div>
+    </div>
+    <div class="filters">
+      <label>Facility<select id="fFac"><option value="all">All facilities</option><option>Wilson Medical Center</option><option>Binghamton General</option><option>Delaware Valley</option><option>Chenango Memorial</option></select></label>
+      <label>Service line<select id="fSl"><option value="all">All service lines</option><option>Cardiology</option><option>Orthopedics</option><option>Oncology</option><option>Emergency</option><option>Maternity</option><option>General surgery</option></select></label>
+      <label>Quarter<select id="fQ"><option value="3">Q3 FY26</option><option value="2">Q2 FY26</option><option value="1">Q1 FY26</option><option value="0">Q4 FY25</option></select></label>
+    </div>
+  </header>
+
+  <section class="kpis" id="kpis"></section>
+
+  <section class="grid">
+    <div class="card span-8 chart">
+      <h2>From gross charges to operating margin</h2><div class="sub" id="wfSub">Waterfall for the selected scope · $ millions</div>
+      <svg id="wf" viewBox="0 0 860 300" role="img" aria-label="Revenue to margin waterfall"></svg>
+      <div class="tip" id="tipW"></div>
+    </div>
+    <div class="card span-4"><div class="insight" id="insight"><span class="tag">Reading the quarter</span></div></div>
+  </section>
+
+  <section class="grid">
+    <div class="card span-4 chart">
+      <h2>Payer mix</h2><div class="sub">Share of net revenue</div>
+      <div class="donut-wrap"><svg viewBox="0 0 180 180" width="180" height="180" id="donut"></svg><div id="dlist"></div></div>
+      <div class="tip" id="tipD"></div>
+    </div>
+    <div class="card span-8">
+      <h2>Quality measures vs CMS benchmark</h2><div class="sub">Bar = this quarter · tick = national benchmark · shaded band = target range</div>
+      <div class="bullets" id="bullets"></div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card span-12 chart">
+      <h2>Service-line contribution margin</h2><div class="sub" id="slSub">Margin % by service line · bar width = net revenue</div>
+      <svg id="sl" viewBox="0 0 1300 250" role="img" aria-label="Service line margins"></svg>
+      <div class="tip" id="tipS"></div>
+    </div>
+  </section>
+  <div class="foot"><b>Data</b> simulated four-hospital system (6 service lines, 5 payers, 4 quarters) with a fixed seed; quality benchmarks approximate published CMS Hospital Compare national rates. <b>Method</b> operating margin = (net revenue − operating expense) ÷ net revenue; contribution margin excludes allocated overhead.</div>
+</div>
+
+<script>
+function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+const R=rng(91);
+const FAC=['Wilson Medical Center','Binghamton General','Delaware Valley','Chenango Memorial'];const SL=['Cardiology','Orthopedics','Oncology','Emergency','Maternity','General surgery'];const PAY=['Medicare','Medicaid','Commercial','Self-pay','Other'];
+const facScale={'Wilson Medical Center':1.6,'Binghamton General':1.1,'Delaware Valley':0.6,'Chenango Memorial':0.45};
+const slBase={Cardiology:[42,0.31],Orthopedics:[36,0.27],Oncology:[38,0.22],Emergency:[30,0.06],Maternity:[18,0.10],'General surgery':[27,0.19]}; // [gross $M per quarter at scale 1, contribution margin]
+const payMix={Medicare:.41,Medicaid:.19,Commercial:.31,'Self-pay':.05,Other:.04};const payCollect={Medicare:.31,Medicaid:.24,Commercial:.52,'Self-pay':.12,Other:.35};
+const rows=[];
+for(let q=0;q<4;q++)FAC.forEach(f=>SL.forEach(s=>{const [g,m]=slBase[s];const gross=g*facScale[f]*(0.92+R()*0.16)*(1+q*0.015);const mix={};PAY.forEach(p=>mix[p]=payMix[p]*(0.85+R()*0.3));const tot=Object.values(mix).reduce((a,b)=>a+b,0);PAY.forEach(p=>mix[p]/=tot);
+  const net=gross*PAY.reduce((a,p)=>a+mix[p]*payCollect[p],0);const cm=m*(0.85+R()*0.3)-(q===1?0.02:0);const opex=net*(1-cm)+net*0.16;
+  rows.push({q,f,s,gross,net,mix,contrib:net*cm,opex,badDebt:gross*0.025*(0.7+R()*0.6),ar:Math.round(44+R()*14-(q*1.2)),readmit:14.5+R()*4-(s==='Maternity'?6:0),hcahps:68+R()*12,infection:0.7+R()*0.6,mortality:2.1+R()*1.4,los:4.2+R()*1.6+(s==='Oncology'?1.3:0)});}));
+const state={f:'all',s:'all',q:3};
+const $=x=>document.querySelector(x);
+const sc=r=>(state.f==='all'||r.f===state.f)&&(state.s==='all'||r.s===state.s);
+const sum=(rs,k)=>rs.reduce((a,r)=>a+r[k],0);const wavg=(rs,k)=>rs.reduce((a,r)=>a+r[k]*r.net,0)/sum(rs,'net');
+const money=v=>'$'+v.toFixed(1)+'M';const pct=(v,d=1)=>(v>0?'+':'')+v.toFixed(d)+(d===0?'':'')+'%';
+function scopeLabel(){return (state.f==='all'?'all facilities':state.f)+(state.s==='all'?'':' · '+state.s);}
+function render(){const cur=rows.filter(r=>sc(r)&&r.q===state.q),prev=rows.filter(r=>sc(r)&&r.q===state.q-1);
+  const net=sum(cur,'net'),opex=sum(cur,'opex'),margin=(net-opex)/net*100;const pnet=prev.length?sum(prev,'net'):null,pmargin=prev.length?(pnet-sum(prev,'opex'))/pnet*100:null;
+  const ar=wavg(cur,'ar'),readmit=wavg(cur,'readmit'),hc=wavg(cur,'hcahps');const par=prev.length?wavg(prev,'ar'):null,pre=prev.length?wavg(prev,'readmit'):null,phc=prev.length?wavg(prev,'hcahps'):null;
+  const K=[['Net patient revenue',money(net),pnet?(net-pnet)/pnet*100:null,true,'','%'],['Operating margin',margin.toFixed(1)+'%',pmargin!=null?margin-pmargin:null,true,'benchmark 3.5%','pts'],['Days in A/R',ar.toFixed(0)+' d',par!=null?ar-par:null,false,'target ≤ 45','d'],['30-day readmission',readmit.toFixed(1)+'%',pre!=null?readmit-pre:null,false,'CMS 15.0%','pts'],['HCAHPS top-box',hc.toFixed(0)+'%',phc!=null?hc-phc:null,true,'CMS 72%','pts']];
+  $('#kpis').innerHTML=K.map(([l,v,d,hg,b,u])=>`<div class="kpi"><span class="l">${l}</span><span class="v num">${v}</span><span class="d ${d==null?'':(d>=0)===hg?'up':'down'}">${d==null?'first quarter in range':(d>=0?'+':'')+d.toFixed(1)+(u==='%'?'%':u==='pts'?' pts':' d')+' QoQ'}</span><span class="bench">${b}</span></div>`).join('');
+  renderWF(cur);renderDonut(cur);renderBullets(cur);renderSL(cur);renderInsight(cur,prev,margin,pmargin,readmit,hc,ar);
+}
+function renderWF(cur){const gross=sum(cur,'gross'),net=sum(cur,'net'),bad=sum(cur,'badDebt'),opex=sum(cur,'opex');const contractual=gross-net-bad;const salaries=opex*0.56,supplies=opex*0.21,other=opex*0.23;const margin=net-opex;
+  const steps=[['Gross charges',gross,'total'],['Contractual adj.',-contractual,'neg'],['Bad debt',-bad,'neg'],['Net revenue',net,'total'],['Salaries & benefits',-salaries,'neg'],['Supplies & drugs',-supplies,'neg'],['Other opex',-other,'neg'],['Operating margin',margin,'total']];
+  const Wd=860,H=300,L=56,Rr=16,T=16,B=60;const n=steps.length;const bw=Math.min(64,(Wd-L-Rr)/n*0.6);const X=i=>L+(i+0.5)*(Wd-L-Rr)/n;const mx=gross*1.05;const Y=v=>T+(1-v/mx)*(H-T-B);
+  let s='';for(let i=0;i<=4;i++){const v=mx*i/4;s+=`<line x1="${L}" x2="${Wd-Rr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${L-8}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="var(--ink-3)" font-family="DM Mono">$${v.toFixed(0)}M</text>`;}
+  let run=0;steps.forEach(([l,v,t],i)=>{let y0,y1;if(t==='total'){y0=Y(0);y1=Y(v);run=v;}else{y0=Y(run);run+=v;y1=Y(run);}const top=Math.min(y0,y1),h=Math.abs(y0-y1);const col=t==='total'?(l==='Operating margin'?(v>=0?'var(--s3)':'var(--crit)'):'var(--s1)'):'var(--s2)';
+    s+=`<rect x="${X(i)-bw/2}" y="${top}" width="${bw}" height="${Math.max(2,h)}" rx="3" fill="${col}" class="wb" data-l="${l}" data-v="${v}"/>`;if(i<n-1)s+=`<line x1="${X(i)+bw/2}" x2="${X(i+1)-bw/2}" y1="${t==='total'?y1:y1}" y2="${t==='total'?y1:y1}" stroke="var(--ink-3)" stroke-dasharray="3 3"/>`;
+    s+=`<text x="${X(i)}" y="${top-6}" text-anchor="middle" font-size="11" font-weight="600" fill="var(--ink)" font-family="DM Mono">${v<0?'−':''}$${Math.abs(v).toFixed(1)}M</text>`;
+    const words=l.split(' ');words.forEach((w,j)=>s+=`<text x="${X(i)}" y="${H-38+j*13}" text-anchor="middle" font-size="11" fill="var(--ink-2)" font-family="Nunito Sans">${w}</text>`);});
+  const svg=$('#wf');svg.innerHTML=s;const tip=$('#tipW');svg.querySelectorAll('.wb').forEach(b=>{b.addEventListener('mousemove',e=>{tip.innerHTML=`<b>${b.dataset.l}</b> · $${Math.abs(+b.dataset.v).toFixed(2)}M (${(Math.abs(+b.dataset.v)/gross*100).toFixed(1)}% of gross)`;const r=svg.parentElement.getBoundingClientRect();tip.style.left=(e.clientX-r.left)+'px';tip.style.top=(e.clientY-r.top)+'px';tip.style.opacity=1;});b.addEventListener('mouseleave',()=>tip.style.opacity=0);});
+  $('#wfSub').textContent=`Waterfall · ${scopeLabel()} · $ millions · margin ${(margin/net*100).toFixed(1)}%`;}
+function arc(cx,cy,r,ri,a0,a1){const p=(rr,a)=>[cx+rr*Math.cos(a),cy+rr*Math.sin(a)];const [x0,y0]=p(r,a0),[x1,y1]=p(r,a1),[x2,y2]=p(ri,a1),[x3,y3]=p(ri,a0);const big=a1-a0>Math.PI?1:0;return `M${x0},${y0} A${r},${r} 0 ${big} 1 ${x1},${y1} L${x2},${y2} A${ri},${ri} 0 ${big} 0 ${x3},${y3} Z`;}
+function renderDonut(cur){const by={};cur.forEach(r=>PAY.forEach(p=>by[p]=(by[p]||0)+r.gross*r.mix[p]*payCollect[p]));const tot=Object.values(by).reduce((a,b)=>a+b,0);const cols=['var(--s1)','var(--s2)','var(--s3)','var(--s4)','var(--s5)'];
+  let a0=-Math.PI/2,s='';PAY.forEach((p,i)=>{const a1=a0+by[p]/tot*Math.PI*2;s+=`<path d="${arc(90,90,72,48,a0+0.02,a1-0.02)}" fill="${cols[i]}" class="seg" data-p="${p}" data-v="${by[p]}"/>`;a0=a1;});
+  s+=`<text x="90" y="86" text-anchor="middle" font-family="Outfit" font-weight="700" font-size="20" fill="var(--ink)">$${tot.toFixed(0)}M</text><text x="90" y="104" text-anchor="middle" font-size="10" fill="var(--ink-3)">NET REVENUE</text>`;
+  const svg=$('#donut');svg.innerHTML=s;$('#dlist').innerHTML=PAY.map((p,i)=>`<div class="dl"><i style="background:${cols[i]}"></i><span>${p}</span><span class="num">${(by[p]/tot*100).toFixed(0)}%</span></div>`).join('');
+  const tip=$('#tipD');svg.querySelectorAll('.seg').forEach(g=>{g.addEventListener('mousemove',e=>{tip.innerHTML=`<b>${g.dataset.p}</b> · $${(+g.dataset.v).toFixed(1)}M · collects ${(payCollect[g.dataset.p]*100).toFixed(0)}¢ per $ charged`;const r=svg.parentElement.parentElement.getBoundingClientRect();tip.style.left=(e.clientX-r.left)+'px';tip.style.top=(e.clientY-r.top)+'px';tip.style.opacity=1;});g.addEventListener('mouseleave',()=>tip.style.opacity=0);});}
+function renderBullets(cur){const M=[['30-day readmission','lower is better',wavg(cur,'readmit'),15.0,[12,15],25,'%',false],['HCAHPS top-box','higher is better',wavg(cur,'hcahps'),72,[72,80],100,'%',true],['Hospital-acquired infection index','lower is better',wavg(cur,'infection'),1.0,[0.6,1.0],2,'',false],['Risk-adjusted mortality','lower is better',wavg(cur,'mortality'),2.8,[2.0,2.8],5,'%',false],['Average length of stay','lower is better',wavg(cur,'los'),4.9,[4.0,4.9],8,' d',false]];
+  $('#bullets').innerHTML=M.map(([l,sub,v,b,band,mx,u,hg])=>{const ok=hg?v>=b:v<=b;const near=hg?v>=b-2:v<=b*1.1;const col=ok?'var(--good)':near?'var(--warn)':'var(--crit)';return `<div class="bullet"><span class="l">${l}<small>${sub}</small></span><div class="track"><span class="band" style="left:${band[0]/mx*100}%;width:${(band[1]-band[0])/mx*100}%"></span><span class="bar" style="width:${Math.min(100,v/mx*100)}%;background:${col}"></span><span class="mark" style="left:${b/mx*100}%" title="Benchmark ${b}${u}"></span></div><span class="val num" style="color:${col};font-weight:700">${v.toFixed(u===''?2:1)}${u}</span></div>`;}).join('');}
+function renderSL(cur){const by={};cur.forEach(r=>{by[r.s]=by[r.s]||{net:0,contrib:0};by[r.s].net+=r.net;by[r.s].contrib+=r.contrib;});const sls=SL.filter(s=>by[s]).map(s=>({s,net:by[s].net,m:by[s].contrib/by[s].net*100})).sort((a,b)=>b.m-a.m);
+  const Wd=1300,H=250,L=56,Rr=16,T=16,B=40;const totN=sls.reduce((a,x)=>a+x.net,0);const mxM=Math.max(...sls.map(x=>x.m))*1.15;const Y=v=>T+(1-v/mxM)*(H-T-B);let s='';
+  for(let i=0;i<=4;i++){const v=mxM*i/4;s+=`<line x1="${L}" x2="${Wd-Rr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${L-8}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="var(--ink-3)" font-family="DM Mono">${v.toFixed(0)}%</text>`;}
+  let x=L;const gap=8;const avail=Wd-L-Rr-gap*(sls.length-1);sls.forEach(o=>{const w=Math.max(40,o.net/totN*avail);const col=o.m>=20?'var(--s3)':o.m>=10?'var(--s4)':'var(--s2)';s+=`<rect x="${x}" y="${Y(o.m)}" width="${w}" height="${Y(0)-Y(o.m)}" rx="4" fill="${col}" class="sb" data-s="${o.s}" data-n="${o.net}" data-m="${o.m}"/><text x="${x+w/2}" y="${Y(o.m)-6}" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)" font-family="DM Mono">${o.m.toFixed(1)}%</text><text x="${x+w/2}" y="${H-20}" text-anchor="middle" font-size="12" fill="var(--ink-2)" font-family="Nunito Sans">${o.s}</text><text x="${x+w/2}" y="${H-6}" text-anchor="middle" font-size="11" fill="var(--ink-3)" font-family="DM Mono">$${o.net.toFixed(0)}M</text>`;x+=w+gap;});
+  const svg=$('#sl');svg.innerHTML=s;const tip=$('#tipS');svg.querySelectorAll('.sb').forEach(b=>{b.addEventListener('mousemove',e=>{tip.innerHTML=`<b>${b.dataset.s}</b> · net $${(+b.dataset.n).toFixed(1)}M · contribution ${(+b.dataset.m).toFixed(1)}%`;const r=svg.parentElement.getBoundingClientRect();tip.style.left=(e.clientX-r.left)+'px';tip.style.top=(e.clientY-r.top)+'px';tip.style.opacity=1;});b.addEventListener('mouseleave',()=>tip.style.opacity=0);});
+  $('#slSub').textContent=`Contribution margin by service line · ${scopeLabel()} · bar width = share of net revenue`;}
+function renderInsight(cur,prev,margin,pmargin,readmit,hc,ar){const by={};cur.forEach(r=>{by[r.s]=by[r.s]||{net:0,c:0};by[r.s].net+=r.net;by[r.s].c+=r.contrib;});const sls=Object.entries(by).map(([s,v])=>({s,m:v.c/v.net*100,net:v.net})).sort((a,b)=>b.m-a.m);
+  const pay={};cur.forEach(r=>PAY.forEach(p=>pay[p]=(pay[p]||0)+r.gross*r.mix[p]));const gtot=Object.values(pay).reduce((a,b)=>a+b,0);const govt=(pay.Medicare+pay.Medicaid)/gtot*100;
+  const lead=margin>=3.5?`Operating margin of ${margin.toFixed(1)}% clears the 3.5% benchmark for ${scopeLabel()}${pmargin!=null?`, ${margin-pmargin>=0?'up':'down'} ${Math.abs(margin-pmargin).toFixed(1)} points on the quarter`:''}.`:margin>=0?`Operating margin is thin at ${margin.toFixed(1)}% for ${scopeLabel()} — positive, but below the 3.5% benchmark.`:`${scopeLabel().replace(/^a/,'A')} is running a negative operating margin (${margin.toFixed(1)}%).`;
+  const ps=[];
+  if(sls.length>1)ps.push(`<b>${sls[0].s}</b> carries the system with a ${sls[0].m.toFixed(0)}% contribution margin on $${sls[0].net.toFixed(0)}M; <b>${sls[sls.length-1].s}</b> is the drag at ${sls[sls.length-1].m.toFixed(0)}%${sls[sls.length-1].s==='Emergency'?' — expected for an ED, which feeds admissions to the profitable lines':''}.`);
+  else ps.push(`${sls[0].s} contributes ${sls[0].m.toFixed(0)}% on $${sls[0].net.toFixed(0)}M net revenue.`);
+  ps.push(`Government payers are ${govt.toFixed(0)}% of charges; every 1-point shift from Medicaid to Commercial is worth roughly $${(gtot*0.01*(payCollect.Commercial-payCollect.Medicaid)).toFixed(1)}M of net revenue a quarter, which is why payer contracting matters more than volume here.`);
+  ps.push(`Quality: readmissions ${readmit<=15?'beat':'miss'} the CMS 15.0% rate at ${readmit.toFixed(1)}%, HCAHPS ${hc>=72?'meets':'misses'} the 72% top-box benchmark at ${hc.toFixed(0)}%, and A/R sits at ${ar.toFixed(0)} days${ar>45?' — above the 45-day target, so cash is lagging the P&L':''}.`);
+  $('#insight').innerHTML=`<span class="tag">Reading the quarter</span><p class="lead">${lead}</p>`+ps.map(p=>`<p>${p}</p>`).join('');}
+$('#fFac').addEventListener('change',e=>{state.f=e.target.value;render();});$('#fSl').addEventListener('change',e=>{state.s=e.target.value;render();});$('#fQ').addEventListener('change',e=>{state.q=+e.target.value;render();});
+render();
+</script>

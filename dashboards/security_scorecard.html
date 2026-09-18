@@ -1,0 +1,178 @@
+<title>Security Posture Scorecard</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600&family=Roboto+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#f3f5f8; --surface:#ffffff; --surface-2:#e9edf3; --line:#d6dce6; --ink:#101623; --ink-2:#48536a; --ink-3:#7d8798;
+  --accent:#2f3fa8; --accent-2:#7b5cf7;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100;
+  --good:#008300; --good-bg:#e3f3df; --warn:#b97a00; --warn-bg:#fbefcf; --crit:#d0312f; --crit-bg:#fbe1e0; --ser:#c2410c;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f131b; --surface:#171c27; --surface-2:#212838; --line:#2f3849; --ink:#eef1f6; --ink-2:#b8c0d0; --ink-3:#7f8898;
+  --accent:#8b97ff; --accent-2:#a58cff; --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
+  --good:#5cc35c; --good-bg:#1a2e1a; --warn:#e6a93a; --warn-bg:#342a10; --crit:#f07472; --crit-bg:#3a1c1c; --ser:#f59e6b; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#0f131b; --surface:#171c27; --surface-2:#212838; --line:#2f3849; --ink:#eef1f6; --ink-2:#b8c0d0; --ink-3:#7f8898;
+  --accent:#8b97ff; --accent-2:#a58cff; --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
+  --good:#5cc35c; --good-bg:#1a2e1a; --warn:#e6a93a; --warn-bg:#342a10; --crit:#f07472; --crit-bg:#3a1c1c; --ser:#f59e6b; color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:"Source Sans 3",system-ui,sans-serif;font-size:15px;line-height:1.45;padding:0 20px;padding-block:18px 48px}
+h1,h2,h3{font-family:Archivo,sans-serif;margin:0;text-wrap:balance}
+.num{font-family:"Roboto Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1360px;margin:0 auto;display:grid;gap:18px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-size:28px;font-weight:800;letter-spacing:-.01em}
+.byline{color:var(--ink-2);font-size:13px}.byline b{color:var(--ink);font-weight:600}
+.filters{display:flex;flex-wrap:wrap;gap:10px}
+.filters label{display:flex;flex-direction:column;gap:3px;font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 9px;min-width:140px}
+select:focus,button:focus,input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(12,1fr)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative}
+.card h2{font-size:15px;font-weight:700}.card .sub{font-size:12px;color:var(--ink-3);margin-bottom:10px}
+.span-3{grid-column:span 3}.span-4{grid-column:span 4}.span-5{grid-column:span 5}.span-6{grid-column:span 6}.span-7{grid-column:span 7}.span-8{grid-column:span 8}.span-12{grid-column:span 12}
+@media (max-width:1000px){.span-3,.span-4{grid-column:span 6}.span-5,.span-7,.span-8{grid-column:span 12}}
+@media (max-width:600px){.span-3,.span-4,.span-6{grid-column:span 12}}
+.score{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center}
+@media (max-width:600px){.score{grid-template-columns:1fr}}
+.dial{width:190px;height:190px}
+.grade{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;font-family:Archivo;font-weight:800;font-size:22px;color:#fff}
+.kv{display:grid;gap:8px}
+.kv .row{display:grid;grid-template-columns:140px 1fr 46px 60px;gap:10px;align-items:center;font-size:13px}
+.kv .bar{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}
+.kv .bar i{display:block;height:100%;border-radius:4px}
+.kv input[type=range]{width:100%;accent-color:var(--accent);margin:0}
+.kv .w{font-size:11px;color:var(--ink-3);text-align:right}
+.radar svg{width:100%;height:auto;display:block;overflow:visible}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--ink-2);margin-bottom:6px}
+.legend span{display:inline-flex;align-items:center;gap:6px}.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12px;padding:6px 9px;border-radius:8px;white-space:nowrap;transform:translate(-50%,calc(-100% - 10px));opacity:0;transition:opacity .12s;z-index:2}
+.tip b{font-weight:600}
+.chart svg{width:100%;height:auto;display:block;overflow:visible}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);font-weight:600;text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td{padding:7px 8px;border-bottom:1px solid var(--line)}
+.tbl tr:last-child td{border-bottom:0}.tbl .r{text-align:right}
+.tblwrap{overflow-x:auto}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px}
+.pill.good{background:var(--good-bg);color:var(--good)}.pill.warn{background:var(--warn-bg);color:var(--warn)}.pill.crit{background:var(--crit-bg);color:var(--crit)}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.lvl{display:inline-flex;gap:2px}.lvl i{width:10px;height:10px;border-radius:2px;background:var(--surface-2)}
+.insight{display:grid;gap:10px;line-height:1.55}.insight p{margin:0}.insight .lead{font-family:Archivo;font-size:17px;font-weight:700}
+.insight .tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.seg{display:inline-flex;background:var(--surface-2);border-radius:8px;padding:3px;gap:2px}
+.seg button{font:inherit;font-size:12px;font-weight:600;border:0;background:transparent;color:var(--ink-2);padding:5px 12px;border-radius:6px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 0 0 1px var(--line)}
+.foot{font-size:12px;color:var(--ink-3)}.foot b{color:var(--ink-2)}
+.legend-sev{display:flex;gap:10px;font-size:11px;color:var(--ink-3);margin-top:8px;flex-wrap:wrap}
+.legend-sev span{display:inline-flex;align-items:center;gap:4px}.legend-sev i{width:10px;height:10px;border-radius:50%}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Consumer security · Organization-wide posture</div>
+      <h1>Security Posture Scorecard</h1>
+      <div class="byline">Prepared by <b>Amtul Saboor</b> · one score per organization, team and job level, with weights the security leadership sets</div>
+    </div>
+    <div class="filters">
+      <label>Organization<select id="fOrg"><option value="all">Whole company</option></select></label>
+      <label>Job level<select id="fLvl"><option value="all">All levels</option><option>L4</option><option>L5</option><option>L6</option><option>L7+</option></select></label>
+      <label>Period<div class="seg" id="per"><button aria-pressed="true" data-v="q">This quarter</button><button aria-pressed="false" data-v="p">Last quarter</button></div></label>
+    </div>
+  </header>
+
+  <section class="grid">
+    <div class="card span-7">
+      <h2>Composite security score</h2><div class="sub">Weighted across six control domains — drag a weight and everything re-scores</div>
+      <div class="score">
+        <svg class="dial" viewBox="0 0 190 190" id="dial"></svg>
+        <div class="kv" id="domains"></div>
+      </div>
+    </div>
+    <div class="card span-5"><div class="insight" id="insight"><span class="tag">What the numbers say</span></div></div>
+  </section>
+
+  <section class="grid">
+    <div class="card span-5 radar chart">
+      <h2>Domain profile</h2><div class="sub" id="radarSub">Selected scope vs company average</div>
+      <div class="legend"><span><i style="background:var(--accent-2);opacity:.85"></i>Selected scope</span><span><i style="background:var(--ink-3);opacity:.5"></i>Company</span></div>
+      <svg id="radar" viewBox="0 0 420 340" style="overflow:visible" role="img" aria-label="Radar of domain scores"></svg>
+    </div>
+    <div class="card span-7 chart">
+      <h2>Exposure vs remediation speed</h2><div class="sub">Each bubble is a team · size = headcount · colour = open critical findings</div>
+      <svg id="bubble" viewBox="0 0 760 340" role="img" aria-label="Teams by open findings and median time to remediate"></svg>
+      <div class="legend-sev"><span><i style="background:var(--good)"></i>0 critical open</span><span><i style="background:var(--warn)"></i>1–2</span><span><i style="background:var(--crit)"></i>3+</span></div>
+      <div class="tip" id="tipB"></div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card span-12">
+      <h2>Team leaderboard</h2><div class="sub" id="lbSub">Score by team with level distribution · sorted best to worst</div>
+      <div class="tblwrap"><table class="tbl" id="lb"><thead><tr><th>Team</th><th>Org</th><th class="r">Headcount</th><th class="r">Score</th><th class="r">Δ QoQ</th><th class="r">Open findings</th><th class="r">Critical</th><th class="r">Median days to fix</th><th>Levels L4→L7+</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+  <div class="foot"><b>Data</b> simulated organization of 24 teams across 5 orgs (~2,900 people) with a fixed seed; domain definitions follow the NIST CSF core functions. <b>Method</b> composite = Σ weight × domain score; grade A ≥ 90, B ≥ 80, C ≥ 70, D below.</div>
+</div>
+
+<script>
+function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+const R=rng(4242);
+const DOM=[['identity','Identity & access'],['patch','Patching & vulnerabilities'],['data','Data protection'],['training','Awareness training'],['incident','Incident response'],['thirdparty','Third-party risk']];
+const ORGS=['Retail Tech','Payments','Devices','Ads Platform','Corporate IT'];
+const LV=['L4','L5','L6','L7+'];
+const teams=[];const names=['Checkout','Catalog','Search','Wallet','Risk Engine','Ledger','Firmware','Companion App','Cloud Sync','Bidding','Attribution','Brand Safety','Endpoint','Network','Collab Tools','Identity Svc','Fulfillment UX','Promotions','Card Vault','Fraud Ops','Voice','Telemetry','Measurement','Helpdesk'];
+names.forEach((n,i)=>{const org=ORGS[Math.floor(i/5)]||ORGS[4];const base=62+R()*32;const DOFF={identity:6,patch:-9,data:2,training:9,incident:-5,thirdparty:-12};const d={};DOM.forEach(([k])=>d[k]=Math.max(35,Math.min(99,base+DOFF[k]+(R()-0.5)*26)));
+  const dp={};DOM.forEach(([k])=>dp[k]=Math.max(35,Math.min(99,d[k]-3+(R()-0.5)*10)));
+  const hc=Math.round(40+R()*220);const lv=[0.45,0.32,0.17,0.06].map(p=>Math.round(hc*p*(0.8+R()*0.4)));
+  teams.push({name:n,org,hc,lv,d,dp,open:Math.round((100-base)*0.6*(0.7+R()*0.6)),crit:Math.max(0,Math.round((90-base)/9*(R()*1.6))),mttr:Math.round(6+(100-base)*0.9*(0.6+R()*0.8))});});
+const DEF_W={identity:25,patch:25,data:15,training:10,incident:15,thirdparty:10};
+const state={org:'all',lvl:'all',per:'q',w:{...DEF_W}};
+const $=s=>document.querySelector(s);
+function lvlAdj(t){if(state.lvl==='all')return 0;const i=LV.indexOf(state.lvl);return [-3,0,2,4][i];}
+function scopeTeams(){return teams.filter(t=>state.org==='all'||t.org===state.org);}
+function domScore(ts,k,prev){const hc=ts.reduce((a,t)=>a+t.hc,0);return ts.reduce((a,t)=>a+((prev?t.dp:t.d)[k]+lvlAdj(t))*t.hc,0)/hc;}
+function composite(ts,prev){const tot=Object.values(state.w).reduce((a,b)=>a+b,0);return DOM.reduce((a,[k])=>a+domScore(ts,k,prev)*state.w[k]/tot,0);}
+const grade=s=>s>=90?'A':s>=80?'B':s>=70?'C':'D';const gcol=s=>s>=90?'var(--good)':s>=80?'var(--s1)':s>=70?'var(--warn)':'var(--crit)';
+function scopeLabel(){return (state.org==='all'?'the whole company':state.org)+(state.lvl==='all'?'':' · '+state.lvl);}
+function render(){const ts=scopeTeams();const prev=state.per==='p';const sc=composite(ts,prev),scPrev=composite(ts,!prev);const all=composite(teams,prev);
+  const r=76,c=2*Math.PI*r;
+  $('#dial').innerHTML=`<circle cx="95" cy="95" r="${r}" fill="none" stroke="var(--surface-2)" stroke-width="16"/><circle cx="95" cy="95" r="${r}" fill="none" stroke="${gcol(sc)}" stroke-width="16" stroke-linecap="round" stroke-dasharray="${(c*sc/100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 95 95)"/>
+   <text x="95" y="90" text-anchor="middle" font-family="Archivo" font-weight="800" font-size="44" fill="var(--ink)">${sc.toFixed(0)}</text><text x="95" y="112" text-anchor="middle" font-family="Archivo" font-weight="700" font-size="16" fill="${gcol(sc)}">Grade ${grade(sc)}</text><text x="95" y="130" text-anchor="middle" font-size="11" fill="var(--ink-3)" font-family="Source Sans 3">${state.per==='q'?(sc-scPrev>=0?'+':'')+(sc-scPrev).toFixed(1)+' vs last quarter':'last quarter'}</text>`;
+  const tot=Object.values(state.w).reduce((a,b)=>a+b,0);
+  $('#domains').innerHTML=DOM.map(([k,l])=>{const v=domScore(ts,k,prev);return `<div class="row"><span>${l}</span><div><div class="bar"><i style="width:${v.toFixed(0)}%;background:${gcol(v)}"></i></div><input type="range" min="0" max="50" value="${state.w[k]}" data-k="${k}" aria-label="Weight for ${l}"></div><span class="num" style="text-align:right;font-weight:600">${v.toFixed(0)}</span><span class="w num">w ${(state.w[k]/tot*100).toFixed(0)}%</span></div>`;}).join('');
+  $('#domains').querySelectorAll('input').forEach(i=>i.addEventListener('input',e=>{state.w[e.target.dataset.k]=+e.target.value;render();}));
+  renderRadar(ts,prev);renderBubble(ts,prev);renderLB(ts,prev);renderInsight(ts,prev,sc,scPrev,all);
+}
+function renderRadar(ts,prev){const cx=210,cy=170,R0=105;const n=DOM.length;const ang=i=>-Math.PI/2+i*2*Math.PI/n;const pt=(i,v)=>[cx+R0*v/100*Math.cos(ang(i)),cy+R0*v/100*Math.sin(ang(i))];
+  let s='';[25,50,75,100].forEach(g=>{s+=`<polygon points="${DOM.map((_,i)=>pt(i,g).join(',')).join(' ')}" fill="none" stroke="var(--line)"/>`;});
+  DOM.forEach(([k,l],i)=>{const [x,y]=pt(i,100);s+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--line)"/>`;const [lx,ly]=pt(i,122);s+=`<text x="${lx}" y="${ly+4}" text-anchor="${Math.abs(lx-cx)<8?'middle':lx>cx?'start':'end'}" font-size="12" fill="var(--ink-2)" font-family="Source Sans 3">${l.replace(' & ',' &amp; ').replace('Patching &amp; vulnerabilities','Patching').replace('Awareness training','Training').replace('Third-party risk','Third party').replace('Identity &amp; access','Identity').replace('Incident response','Incident resp.').replace('Data protection','Data')}</text>`;});
+  const poly=(src,fill,stroke,op)=>{const ps=DOM.map(([k],i)=>pt(i,domScore(src,k,prev)));return `<polygon points="${ps.map(p=>p.join(',')).join(' ')}" fill="${fill}" fill-opacity="${op}" stroke="${stroke}" stroke-width="2" stroke-linejoin="round"/>`+ps.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="${stroke}" stroke="var(--surface)" stroke-width="2"><title>${DOM[i][1]}: ${domScore(src,DOM[i][0],prev).toFixed(0)}</title></circle>`).join('');};
+  s+=poly(teams,'var(--ink-3)','var(--ink-3)',0.12)+poly(ts,'var(--accent-2)','var(--accent-2)',0.22);
+  $('#radar').innerHTML=s;$('#radarSub').textContent=`${state.org==='all'?'Whole company':state.org}${state.lvl==='all'?'':' · '+state.lvl} vs company average`;}
+function renderBubble(ts,prev){const Wd=760,H=340,L=54,Rr=20,T=16,B=40;const mxO=Math.max(...ts.map(t=>t.open))*1.15,mxM=Math.max(...ts.map(t=>t.mttr))*1.15;const X=v=>L+v/mxO*(Wd-L-Rr),Y=v=>T+(1-v/mxM)*(H-T-B);
+  let s='';for(let i=0;i<=4;i++){const v=mxM*i/4;s+=`<line x1="${L}" x2="${Wd-Rr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${L-8}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="var(--ink-3)" font-family="Roboto Mono">${v.toFixed(0)}d</text>`;}
+  for(let i=0;i<=5;i++){const v=mxO*i/5;s+=`<text x="${X(v)}" y="${H-14}" text-anchor="middle" font-size="11" fill="var(--ink-3)" font-family="Roboto Mono">${v.toFixed(0)}</text>`;}
+  s+=`<text x="${Wd-Rr}" y="${H-1}" text-anchor="end" font-size="11" fill="var(--ink-3)" font-family="Source Sans 3">open findings →</text><text x="${L}" y="${T-4}" font-size="11" fill="var(--ink-3)" font-family="Source Sans 3">median days to remediate ↑</text>`;
+  const mxH=Math.max(...ts.map(t=>t.hc));
+  [...ts].sort((a,b)=>b.hc-a.hc).forEach(t=>{const col=t.crit===0?'var(--good)':t.crit<=2?'var(--warn)':'var(--crit)';const rr=6+Math.sqrt(t.hc/mxH)*22;s+=`<circle cx="${X(t.open)}" cy="${Y(t.mttr)}" r="${rr.toFixed(1)}" fill="${col}" fill-opacity=".55" stroke="${col}" stroke-width="1.5" class="bb" data-n="${t.name}"/>`;if(t.crit>=3||t.hc>=mxH*0.9||t.mttr===Math.max(...ts.map(x=>x.mttr))||t.open===Math.min(...ts.map(x=>x.open)))s+=`<text x="${X(t.open)}" y="${Y(t.mttr)-rr-4}" text-anchor="middle" font-size="11" font-weight="600" fill="var(--ink)" font-family="Source Sans 3">${t.name}</text>`;});
+  const svg=$('#bubble');svg.innerHTML=s;const tip=$('#tipB');svg.querySelectorAll('.bb').forEach(b=>{b.addEventListener('mousemove',e=>{const t=teams.find(x=>x.name===b.dataset.n);tip.innerHTML=`<b>${t.name}</b> · ${t.org}<br>${t.open} open · ${t.crit} critical · ${t.mttr}d median fix · ${t.hc} people`;const r=svg.parentElement.getBoundingClientRect();tip.style.left=(e.clientX-r.left)+'px';tip.style.top=(e.clientY-r.top)+'px';tip.style.opacity=1;});b.addEventListener('mouseleave',()=>tip.style.opacity=0);});}
+function renderLB(ts,prev){const rows=ts.map(t=>{const s=composite([t],prev),p=composite([t],!prev);return {...t,s,d:state.per==='q'?s-p:0};}).sort((a,b)=>b.s-a.s);
+  $('#lbSub').textContent=`${rows.length} teams · ${scopeLabel()} · sorted best to worst`;
+  $('#lb tbody').innerHTML=rows.map(t=>{const st=t.s>=80?'good':t.s>=70?'warn':'crit';const mxl=Math.max(...t.lv);return `<tr><td><b>${t.name}</b></td><td>${t.org}</td><td class="r num">${t.hc}</td><td class="r num"><b>${t.s.toFixed(0)}</b> <span class="grade" style="width:22px;height:22px;font-size:12px;border-radius:6px;background:${gcol(t.s)}">${grade(t.s)}</span></td><td class="r num" style="color:${t.d>=0?'var(--good)':'var(--crit)'}">${state.per==='q'?(t.d>=0?'+':'')+t.d.toFixed(1):'—'}</td><td class="r num">${t.open}</td><td class="r num">${t.crit}</td><td class="r num">${t.mttr}</td><td><span class="lvl">${t.lv.map((v,i)=>`<i style="background:${['var(--s1)','var(--s3)','var(--s4)','var(--s2)'][i]};opacity:${(0.3+0.7*v/mxl).toFixed(2)}" title="${LV[i]}: ${v}"></i>`).join('')}</span></td><td><span class="pill ${st}">${st==='good'?'Compliant':st==='warn'?'Needs attention':'At risk'}</span></td></tr>`;}).join('');}
+function renderInsight(ts,prev,sc,scPrev,all){const dom=DOM.map(([k,l])=>({k,l,v:domScore(ts,k,prev),c:domScore(teams,k,prev)})).sort((a,b)=>a.v-b.v);const weakest=dom[0],strongest=dom[dom.length-1];
+  const worstTeam=[...ts].map(t=>({t,s:composite([t],prev)})).sort((a,b)=>a.s-b.s)[0];const critTotal=ts.reduce((a,t)=>a+t.crit,0);const slow=[...ts].sort((a,b)=>b.mttr-a.mttr)[0];
+  const tot=Object.values(state.w).reduce((a,b)=>a+b,0);const topW=DOM.map(([k,l])=>({l,w:state.w[k]/tot})).sort((a,b)=>b.w-a.w)[0];
+  const lead=`${scopeLabel().replace(/^t/,'T')} scores ${sc.toFixed(0)} (grade ${grade(sc)})${state.org==='all'?'':`, ${sc>=all?'above':'below'} the company's ${all.toFixed(0)}`}${state.per==='q'?`, ${sc-scPrev>=0?'up':'down'} ${Math.abs(sc-scPrev).toFixed(1)} points quarter over quarter`:''}.`;
+  const ps=[`Weakest domain is <b>${weakest.l}</b> at ${weakest.v.toFixed(0)} (${(weakest.v-weakest.c)>=0?'+':''}${(weakest.v-weakest.c).toFixed(0)} vs company); strongest is <b>${strongest.l}</b> at ${strongest.v.toFixed(0)}. With <b>${topW.l}</b> carrying ${(topW.w*100).toFixed(0)}% of the weight, a 10-point gain there moves the composite by ${(topW.w*10).toFixed(1)} points.`,
+    `<b>${worstTeam.t.name}</b> is the lowest team at ${worstTeam.s.toFixed(0)}; <b>${slow.name}</b> takes longest to remediate (${slow.mttr} days median). ${critTotal} critical findings are open across ${ts.filter(t=>t.crit>0).length} teams${critTotal>8?' — enough to hold the org below grade B until closed':''}.`,
+    state.lvl==='all'?`Level view: scores rise with seniority in this data (L7+ runs about 7 points above L4), which usually means training completion, not access hygiene — filter by level to confirm.`:`Filtered to ${state.lvl}: the level adjustment is ${lvlAdj(ts[0])>=0?'+':''}${lvlAdj(ts[0])} points against the team baseline.`];
+  $('#insight').innerHTML=`<span class="tag">What the numbers say</span><p class="lead">${lead}</p>`+ps.map(p=>`<p>${p}</p>`).join('');}
+ORGS.forEach(o=>{const e=document.createElement('option');e.textContent=o;$('#fOrg').appendChild(e);});
+$('#fOrg').addEventListener('change',e=>{state.org=e.target.value;render();});$('#fLvl').addEventListener('change',e=>{state.lvl=e.target.value;render();});
+$('#per').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{$('#per').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');state.per=b.dataset.v;render();}));
+render();
+</script>
