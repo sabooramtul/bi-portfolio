@@ -1,0 +1,289 @@
+team,org,quarter,domain,domain_key,score,headcount,l4,l5,l6,l7plus,open_findings,critical_open,median_days_to_fix
+Checkout,Retail Tech,this quarter,Identity & access,identity,84.3,149,69,51,24,10,8,0,12
+Checkout,Retail Tech,this quarter,Patching & vulnerabilities,patch,77.3,149,69,51,24,10,8,0,12
+Checkout,Retail Tech,this quarter,Data protection,data,97.1,149,69,51,24,10,8,0,12
+Checkout,Retail Tech,this quarter,Awareness training,training,99,149,69,51,24,10,8,0,12
+Checkout,Retail Tech,this quarter,Incident response,incident,82.9,149,69,51,24,10,8,0,12
+Checkout,Retail Tech,this quarter,Third-party risk,thirdparty,86,149,69,51,24,10,8,0,12
+Checkout,Retail Tech,last quarter,Identity & access,identity,85.9,149,69,51,24,10,8,0,12
+Checkout,Retail Tech,last quarter,Patching & vulnerabilities,patch,74.1,149,69,51,24,10,8,0,12
+Checkout,Retail Tech,last quarter,Data protection,data,91.9,149,69,51,24,10,8,0,12
+Checkout,Retail Tech,last quarter,Awareness training,training,96,149,69,51,24,10,8,0,12
+Checkout,Retail Tech,last quarter,Incident response,incident,82,149,69,51,24,10,8,0,12
+Checkout,Retail Tech,last quarter,Third-party risk,thirdparty,82.6,149,69,51,24,10,8,0,12
+Catalog,Retail Tech,this quarter,Identity & access,identity,70.7,183,96,51,26,10,16,2,49
+Catalog,Retail Tech,this quarter,Patching & vulnerabilities,patch,53.4,183,96,51,26,10,16,2,49
+Catalog,Retail Tech,this quarter,Data protection,data,53.3,183,96,51,26,10,16,2,49
+Catalog,Retail Tech,this quarter,Awareness training,training,71.1,183,96,51,26,10,16,2,49
+Catalog,Retail Tech,this quarter,Incident response,incident,54.5,183,96,51,26,10,16,2,49
+Catalog,Retail Tech,this quarter,Third-party risk,thirdparty,53.1,183,96,51,26,10,16,2,49
+Catalog,Retail Tech,last quarter,Identity & access,identity,71.2,183,96,51,26,10,16,2,49
+Catalog,Retail Tech,last quarter,Patching & vulnerabilities,patch,53.1,183,96,51,26,10,16,2,49
+Catalog,Retail Tech,last quarter,Data protection,data,54.9,183,96,51,26,10,16,2,49
+Catalog,Retail Tech,last quarter,Awareness training,training,63.6,183,96,51,26,10,16,2,49
+Catalog,Retail Tech,last quarter,Incident response,incident,53.9,183,96,51,26,10,16,2,49
+Catalog,Retail Tech,last quarter,Third-party risk,thirdparty,52.1,183,96,51,26,10,16,2,49
+Search,Retail Tech,this quarter,Identity & access,identity,86.6,193,93,55,39,10,18,2,26
+Search,Retail Tech,this quarter,Patching & vulnerabilities,patch,76.3,193,93,55,39,10,18,2,26
+Search,Retail Tech,this quarter,Data protection,data,72.3,193,93,55,39,10,18,2,26
+Search,Retail Tech,this quarter,Awareness training,training,72.5,193,93,55,39,10,18,2,26
+Search,Retail Tech,this quarter,Incident response,incident,75.4,193,93,55,39,10,18,2,26
+Search,Retail Tech,this quarter,Third-party risk,thirdparty,70.3,193,93,55,39,10,18,2,26
+Search,Retail Tech,last quarter,Identity & access,identity,84.2,193,93,55,39,10,18,2,26
+Search,Retail Tech,last quarter,Patching & vulnerabilities,patch,77.9,193,93,55,39,10,18,2,26
+Search,Retail Tech,last quarter,Data protection,data,69.7,193,93,55,39,10,18,2,26
+Search,Retail Tech,last quarter,Awareness training,training,73.2,193,93,55,39,10,18,2,26
+Search,Retail Tech,last quarter,Incident response,incident,68.9,193,93,55,39,10,18,2,26
+Search,Retail Tech,last quarter,Third-party risk,thirdparty,70.8,193,93,55,39,10,18,2,26
+Wallet,Retail Tech,this quarter,Identity & access,identity,79.5,154,58,50,23,10,16,0,28
+Wallet,Retail Tech,this quarter,Patching & vulnerabilities,patch,67.9,154,58,50,23,10,16,0,28
+Wallet,Retail Tech,this quarter,Data protection,data,88.5,154,58,50,23,10,16,0,28
+Wallet,Retail Tech,this quarter,Awareness training,training,86.5,154,58,50,23,10,16,0,28
+Wallet,Retail Tech,this quarter,Incident response,incident,65.4,154,58,50,23,10,16,0,28
+Wallet,Retail Tech,this quarter,Third-party risk,thirdparty,67.7,154,58,50,23,10,16,0,28
+Wallet,Retail Tech,last quarter,Identity & access,identity,80.6,154,58,50,23,10,16,0,28
+Wallet,Retail Tech,last quarter,Patching & vulnerabilities,patch,67.9,154,58,50,23,10,16,0,28
+Wallet,Retail Tech,last quarter,Data protection,data,89.6,154,58,50,23,10,16,0,28
+Wallet,Retail Tech,last quarter,Awareness training,training,84.6,154,58,50,23,10,16,0,28
+Wallet,Retail Tech,last quarter,Incident response,incident,59,154,58,50,23,10,16,0,28
+Wallet,Retail Tech,last quarter,Third-party risk,thirdparty,62.3,154,58,50,23,10,16,0,28
+Risk Engine,Retail Tech,this quarter,Identity & access,identity,74.4,157,72,47,24,11,18,1,29
+Risk Engine,Retail Tech,this quarter,Patching & vulnerabilities,patch,57.1,157,72,47,24,11,18,1,29
+Risk Engine,Retail Tech,this quarter,Data protection,data,78.1,157,72,47,24,11,18,1,29
+Risk Engine,Retail Tech,this quarter,Awareness training,training,90.8,157,72,47,24,11,18,1,29
+Risk Engine,Retail Tech,this quarter,Incident response,incident,81.2,157,72,47,24,11,18,1,29
+Risk Engine,Retail Tech,this quarter,Third-party risk,thirdparty,56.7,157,72,47,24,11,18,1,29
+Risk Engine,Retail Tech,last quarter,Identity & access,identity,73.7,157,72,47,24,11,18,1,29
+Risk Engine,Retail Tech,last quarter,Patching & vulnerabilities,patch,54.7,157,72,47,24,11,18,1,29
+Risk Engine,Retail Tech,last quarter,Data protection,data,79.8,157,72,47,24,11,18,1,29
+Risk Engine,Retail Tech,last quarter,Awareness training,training,91.7,157,72,47,24,11,18,1,29
+Risk Engine,Retail Tech,last quarter,Incident response,incident,82.7,157,72,47,24,11,18,1,29
+Risk Engine,Retail Tech,last quarter,Third-party risk,thirdparty,54.6,157,72,47,24,11,18,1,29
+Ledger,Payments,this quarter,Identity & access,identity,76.2,198,85,71,34,10,13,2,31
+Ledger,Payments,this quarter,Patching & vulnerabilities,patch,70.1,198,85,71,34,10,13,2,31
+Ledger,Payments,this quarter,Data protection,data,80.6,198,85,71,34,10,13,2,31
+Ledger,Payments,this quarter,Awareness training,training,79.8,198,85,71,34,10,13,2,31
+Ledger,Payments,this quarter,Incident response,incident,64.4,198,85,71,34,10,13,2,31
+Ledger,Payments,this quarter,Third-party risk,thirdparty,65.8,198,85,71,34,10,13,2,31
+Ledger,Payments,last quarter,Identity & access,identity,76.8,198,85,71,34,10,13,2,31
+Ledger,Payments,last quarter,Patching & vulnerabilities,patch,67.9,198,85,71,34,10,13,2,31
+Ledger,Payments,last quarter,Data protection,data,82.5,198,85,71,34,10,13,2,31
+Ledger,Payments,last quarter,Awareness training,training,73.3,198,85,71,34,10,13,2,31
+Ledger,Payments,last quarter,Incident response,incident,62.4,198,85,71,34,10,13,2,31
+Ledger,Payments,last quarter,Third-party risk,thirdparty,64,198,85,71,34,10,13,2,31
+Firmware,Payments,this quarter,Identity & access,identity,94.8,110,41,39,20,7,8,0,13
+Firmware,Payments,this quarter,Patching & vulnerabilities,patch,73.1,110,41,39,20,7,8,0,13
+Firmware,Payments,this quarter,Data protection,data,93.2,110,41,39,20,7,8,0,13
+Firmware,Payments,this quarter,Awareness training,training,99,110,41,39,20,7,8,0,13
+Firmware,Payments,this quarter,Incident response,incident,75.1,110,41,39,20,7,8,0,13
+Firmware,Payments,this quarter,Third-party risk,thirdparty,86.2,110,41,39,20,7,8,0,13
+Firmware,Payments,last quarter,Identity & access,identity,88.2,110,41,39,20,7,8,0,13
+Firmware,Payments,last quarter,Patching & vulnerabilities,patch,66.3,110,41,39,20,7,8,0,13
+Firmware,Payments,last quarter,Data protection,data,85.7,110,41,39,20,7,8,0,13
+Firmware,Payments,last quarter,Awareness training,training,91.2,110,41,39,20,7,8,0,13
+Firmware,Payments,last quarter,Incident response,incident,74.8,110,41,39,20,7,8,0,13
+Firmware,Payments,last quarter,Third-party risk,thirdparty,86.4,110,41,39,20,7,8,0,13
+Companion App,Payments,this quarter,Identity & access,identity,83,200,96,56,41,13,7,0,17
+Companion App,Payments,this quarter,Patching & vulnerabilities,patch,89.2,200,96,56,41,13,7,0,17
+Companion App,Payments,this quarter,Data protection,data,79.2,200,96,56,41,13,7,0,17
+Companion App,Payments,this quarter,Awareness training,training,87.6,200,96,56,41,13,7,0,17
+Companion App,Payments,this quarter,Incident response,incident,74.5,200,96,56,41,13,7,0,17
+Companion App,Payments,this quarter,Third-party risk,thirdparty,79.7,200,96,56,41,13,7,0,17
+Companion App,Payments,last quarter,Identity & access,identity,83,200,96,56,41,13,7,0,17
+Companion App,Payments,last quarter,Patching & vulnerabilities,patch,87,200,96,56,41,13,7,0,17
+Companion App,Payments,last quarter,Data protection,data,77.1,200,96,56,41,13,7,0,17
+Companion App,Payments,last quarter,Awareness training,training,89.2,200,96,56,41,13,7,0,17
+Companion App,Payments,last quarter,Incident response,incident,67.7,200,96,56,41,13,7,0,17
+Companion App,Payments,last quarter,Third-party risk,thirdparty,79.1,200,96,56,41,13,7,0,17
+Cloud Sync,Payments,this quarter,Identity & access,identity,99,215,110,79,44,12,4,0,15
+Cloud Sync,Payments,this quarter,Patching & vulnerabilities,patch,71.4,215,110,79,44,12,4,0,15
+Cloud Sync,Payments,this quarter,Data protection,data,84.3,215,110,79,44,12,4,0,15
+Cloud Sync,Payments,this quarter,Awareness training,training,99,215,110,79,44,12,4,0,15
+Cloud Sync,Payments,this quarter,Incident response,incident,91.8,215,110,79,44,12,4,0,15
+Cloud Sync,Payments,this quarter,Third-party risk,thirdparty,86,215,110,79,44,12,4,0,15
+Cloud Sync,Payments,last quarter,Identity & access,identity,95.6,215,110,79,44,12,4,0,15
+Cloud Sync,Payments,last quarter,Patching & vulnerabilities,patch,71.6,215,110,79,44,12,4,0,15
+Cloud Sync,Payments,last quarter,Data protection,data,80.5,215,110,79,44,12,4,0,15
+Cloud Sync,Payments,last quarter,Awareness training,training,96.3,215,110,79,44,12,4,0,15
+Cloud Sync,Payments,last quarter,Incident response,incident,84.1,215,110,79,44,12,4,0,15
+Cloud Sync,Payments,last quarter,Third-party risk,thirdparty,86,215,110,79,44,12,4,0,15
+Bidding,Payments,this quarter,Identity & access,identity,65.4,250,122,71,39,13,25,3,26
+Bidding,Payments,this quarter,Patching & vulnerabilities,patch,54.9,250,122,71,39,13,25,3,26
+Bidding,Payments,this quarter,Data protection,data,77.6,250,122,71,39,13,25,3,26
+Bidding,Payments,this quarter,Awareness training,training,85.7,250,122,71,39,13,25,3,26
+Bidding,Payments,this quarter,Incident response,incident,46.8,250,122,71,39,13,25,3,26
+Bidding,Payments,this quarter,Third-party risk,thirdparty,45,250,122,71,39,13,25,3,26
+Bidding,Payments,last quarter,Identity & access,identity,60.6,250,122,71,39,13,25,3,26
+Bidding,Payments,last quarter,Patching & vulnerabilities,patch,51.6,250,122,71,39,13,25,3,26
+Bidding,Payments,last quarter,Data protection,data,74.6,250,122,71,39,13,25,3,26
+Bidding,Payments,last quarter,Awareness training,training,82.1,250,122,71,39,13,25,3,26
+Bidding,Payments,last quarter,Incident response,incident,46.7,250,122,71,39,13,25,3,26
+Bidding,Payments,last quarter,Third-party risk,thirdparty,40.7,250,122,71,39,13,25,3,26
+Attribution,Devices,this quarter,Identity & access,identity,77.8,124,45,43,23,7,12,1,22
+Attribution,Devices,this quarter,Patching & vulnerabilities,patch,75.1,124,45,43,23,7,12,1,22
+Attribution,Devices,this quarter,Data protection,data,85.7,124,45,43,23,7,12,1,22
+Attribution,Devices,this quarter,Awareness training,training,79.4,124,45,43,23,7,12,1,22
+Attribution,Devices,this quarter,Incident response,incident,73.6,124,45,43,23,7,12,1,22
+Attribution,Devices,this quarter,Third-party risk,thirdparty,67.5,124,45,43,23,7,12,1,22
+Attribution,Devices,last quarter,Identity & access,identity,72.5,124,45,43,23,7,12,1,22
+Attribution,Devices,last quarter,Patching & vulnerabilities,patch,71.9,124,45,43,23,7,12,1,22
+Attribution,Devices,last quarter,Data protection,data,84.8,124,45,43,23,7,12,1,22
+Attribution,Devices,last quarter,Awareness training,training,76.6,124,45,43,23,7,12,1,22
+Attribution,Devices,last quarter,Incident response,incident,74,124,45,43,23,7,12,1,22
+Attribution,Devices,last quarter,Third-party risk,thirdparty,68.1,124,45,43,23,7,12,1,22
+Brand Safety,Devices,this quarter,Identity & access,identity,86.9,125,51,40,20,9,22,3,37
+Brand Safety,Devices,this quarter,Patching & vulnerabilities,patch,63.7,125,51,40,20,9,22,3,37
+Brand Safety,Devices,this quarter,Data protection,data,60.9,125,51,40,20,9,22,3,37
+Brand Safety,Devices,this quarter,Awareness training,training,79.3,125,51,40,20,9,22,3,37
+Brand Safety,Devices,this quarter,Incident response,incident,78,125,51,40,20,9,22,3,37
+Brand Safety,Devices,this quarter,Third-party risk,thirdparty,64.7,125,51,40,20,9,22,3,37
+Brand Safety,Devices,last quarter,Identity & access,identity,84.6,125,51,40,20,9,22,3,37
+Brand Safety,Devices,last quarter,Patching & vulnerabilities,patch,65.6,125,51,40,20,9,22,3,37
+Brand Safety,Devices,last quarter,Data protection,data,54.2,125,51,40,20,9,22,3,37
+Brand Safety,Devices,last quarter,Awareness training,training,81.1,125,51,40,20,9,22,3,37
+Brand Safety,Devices,last quarter,Incident response,incident,77.3,125,51,40,20,9,22,3,37
+Brand Safety,Devices,last quarter,Third-party risk,thirdparty,61.8,125,51,40,20,9,22,3,37
+Endpoint,Devices,this quarter,Identity & access,identity,88,107,44,34,16,7,16,1,28
+Endpoint,Devices,this quarter,Patching & vulnerabilities,patch,72.7,107,44,34,16,7,16,1,28
+Endpoint,Devices,this quarter,Data protection,data,60.1,107,44,34,16,7,16,1,28
+Endpoint,Devices,this quarter,Awareness training,training,81.3,107,44,34,16,7,16,1,28
+Endpoint,Devices,this quarter,Incident response,incident,52.8,107,44,34,16,7,16,1,28
+Endpoint,Devices,this quarter,Third-party risk,thirdparty,62.8,107,44,34,16,7,16,1,28
+Endpoint,Devices,last quarter,Identity & access,identity,80.1,107,44,34,16,7,16,1,28
+Endpoint,Devices,last quarter,Patching & vulnerabilities,patch,67.5,107,44,34,16,7,16,1,28
+Endpoint,Devices,last quarter,Data protection,data,58,107,44,34,16,7,16,1,28
+Endpoint,Devices,last quarter,Awareness training,training,77.5,107,44,34,16,7,16,1,28
+Endpoint,Devices,last quarter,Incident response,incident,54.4,107,44,34,16,7,16,1,28
+Endpoint,Devices,last quarter,Third-party risk,thirdparty,59.7,107,44,34,16,7,16,1,28
+Network,Devices,this quarter,Identity & access,identity,68.3,161,60,54,26,9,12,1,23
+Network,Devices,this quarter,Patching & vulnerabilities,patch,72.2,161,60,54,26,9,12,1,23
+Network,Devices,this quarter,Data protection,data,83,161,60,54,26,9,12,1,23
+Network,Devices,this quarter,Awareness training,training,77.9,161,60,54,26,9,12,1,23
+Network,Devices,this quarter,Incident response,incident,63.6,161,60,54,26,9,12,1,23
+Network,Devices,this quarter,Third-party risk,thirdparty,70.8,161,60,54,26,9,12,1,23
+Network,Devices,last quarter,Identity & access,identity,60.8,161,60,54,26,9,12,1,23
+Network,Devices,last quarter,Patching & vulnerabilities,patch,66,161,60,54,26,9,12,1,23
+Network,Devices,last quarter,Data protection,data,75.9,161,60,54,26,9,12,1,23
+Network,Devices,last quarter,Awareness training,training,69.9,161,60,54,26,9,12,1,23
+Network,Devices,last quarter,Incident response,incident,57.4,161,60,54,26,9,12,1,23
+Network,Devices,last quarter,Third-party risk,thirdparty,62.9,161,60,54,26,9,12,1,23
+Collab Tools,Devices,this quarter,Identity & access,identity,89.7,85,39,32,13,4,13,1,19
+Collab Tools,Devices,this quarter,Patching & vulnerabilities,patch,77.8,85,39,32,13,4,13,1,19
+Collab Tools,Devices,this quarter,Data protection,data,95.8,85,39,32,13,4,13,1,19
+Collab Tools,Devices,this quarter,Awareness training,training,82.8,85,39,32,13,4,13,1,19
+Collab Tools,Devices,this quarter,Incident response,incident,75.6,85,39,32,13,4,13,1,19
+Collab Tools,Devices,this quarter,Third-party risk,thirdparty,58.9,85,39,32,13,4,13,1,19
+Collab Tools,Devices,last quarter,Identity & access,identity,84,85,39,32,13,4,13,1,19
+Collab Tools,Devices,last quarter,Patching & vulnerabilities,patch,73.8,85,39,32,13,4,13,1,19
+Collab Tools,Devices,last quarter,Data protection,data,90.5,85,39,32,13,4,13,1,19
+Collab Tools,Devices,last quarter,Awareness training,training,79.3,85,39,32,13,4,13,1,19
+Collab Tools,Devices,last quarter,Incident response,incident,71.7,85,39,32,13,4,13,1,19
+Collab Tools,Devices,last quarter,Third-party risk,thirdparty,60.8,85,39,32,13,4,13,1,19
+Identity Svc,Ads Platform,this quarter,Identity & access,identity,99,178,85,65,36,10,5,0,16
+Identity Svc,Ads Platform,this quarter,Patching & vulnerabilities,patch,78.3,178,85,65,36,10,5,0,16
+Identity Svc,Ads Platform,this quarter,Data protection,data,90.2,178,85,65,36,10,5,0,16
+Identity Svc,Ads Platform,this quarter,Awareness training,training,99,178,85,65,36,10,5,0,16
+Identity Svc,Ads Platform,this quarter,Incident response,incident,84.8,178,85,65,36,10,5,0,16
+Identity Svc,Ads Platform,this quarter,Third-party risk,thirdparty,72.2,178,85,65,36,10,5,0,16
+Identity Svc,Ads Platform,last quarter,Identity & access,identity,94,178,85,65,36,10,5,0,16
+Identity Svc,Ads Platform,last quarter,Patching & vulnerabilities,patch,79.4,178,85,65,36,10,5,0,16
+Identity Svc,Ads Platform,last quarter,Data protection,data,86.9,178,85,65,36,10,5,0,16
+Identity Svc,Ads Platform,last quarter,Awareness training,training,97.4,178,85,65,36,10,5,0,16
+Identity Svc,Ads Platform,last quarter,Incident response,incident,81.3,178,85,65,36,10,5,0,16
+Identity Svc,Ads Platform,last quarter,Third-party risk,thirdparty,72.4,178,85,65,36,10,5,0,16
+Fulfillment UX,Ads Platform,this quarter,Identity & access,identity,77.6,61,31,18,12,4,15,1,31
+Fulfillment UX,Ads Platform,this quarter,Patching & vulnerabilities,patch,67.1,61,31,18,12,4,15,1,31
+Fulfillment UX,Ads Platform,this quarter,Data protection,data,77.9,61,31,18,12,4,15,1,31
+Fulfillment UX,Ads Platform,this quarter,Awareness training,training,79.8,61,31,18,12,4,15,1,31
+Fulfillment UX,Ads Platform,this quarter,Incident response,incident,82.2,61,31,18,12,4,15,1,31
+Fulfillment UX,Ads Platform,this quarter,Third-party risk,thirdparty,71.9,61,31,18,12,4,15,1,31
+Fulfillment UX,Ads Platform,last quarter,Identity & access,identity,77.8,61,31,18,12,4,15,1,31
+Fulfillment UX,Ads Platform,last quarter,Patching & vulnerabilities,patch,64.6,61,31,18,12,4,15,1,31
+Fulfillment UX,Ads Platform,last quarter,Data protection,data,77.3,61,31,18,12,4,15,1,31
+Fulfillment UX,Ads Platform,last quarter,Awareness training,training,78.6,61,31,18,12,4,15,1,31
+Fulfillment UX,Ads Platform,last quarter,Incident response,incident,80,61,31,18,12,4,15,1,31
+Fulfillment UX,Ads Platform,last quarter,Third-party risk,thirdparty,70.5,61,31,18,12,4,15,1,31
+Promotions,Ads Platform,this quarter,Identity & access,identity,91,246,130,85,47,17,21,1,36
+Promotions,Ads Platform,this quarter,Patching & vulnerabilities,patch,66.7,246,130,85,47,17,21,1,36
+Promotions,Ads Platform,this quarter,Data protection,data,64,246,130,85,47,17,21,1,36
+Promotions,Ads Platform,this quarter,Awareness training,training,91.1,246,130,85,47,17,21,1,36
+Promotions,Ads Platform,this quarter,Incident response,incident,72.5,246,130,85,47,17,21,1,36
+Promotions,Ads Platform,this quarter,Third-party risk,thirdparty,49,246,130,85,47,17,21,1,36
+Promotions,Ads Platform,last quarter,Identity & access,identity,90.1,246,130,85,47,17,21,1,36
+Promotions,Ads Platform,last quarter,Patching & vulnerabilities,patch,60.1,246,130,85,47,17,21,1,36
+Promotions,Ads Platform,last quarter,Data protection,data,65.5,246,130,85,47,17,21,1,36
+Promotions,Ads Platform,last quarter,Awareness training,training,88.4,246,130,85,47,17,21,1,36
+Promotions,Ads Platform,last quarter,Incident response,incident,71.5,246,130,85,47,17,21,1,36
+Promotions,Ads Platform,last quarter,Third-party risk,thirdparty,42,246,130,85,47,17,21,1,36
+Card Vault,Ads Platform,this quarter,Identity & access,identity,93.3,156,83,56,30,10,13,0,21
+Card Vault,Ads Platform,this quarter,Patching & vulnerabilities,patch,61,156,83,56,30,10,13,0,21
+Card Vault,Ads Platform,this quarter,Data protection,data,80.2,156,83,56,30,10,13,0,21
+Card Vault,Ads Platform,this quarter,Awareness training,training,85.9,156,83,56,30,10,13,0,21
+Card Vault,Ads Platform,this quarter,Incident response,incident,72.8,156,83,56,30,10,13,0,21
+Card Vault,Ads Platform,this quarter,Third-party risk,thirdparty,79.2,156,83,56,30,10,13,0,21
+Card Vault,Ads Platform,last quarter,Identity & access,identity,86.9,156,83,56,30,10,13,0,21
+Card Vault,Ads Platform,last quarter,Patching & vulnerabilities,patch,58.5,156,83,56,30,10,13,0,21
+Card Vault,Ads Platform,last quarter,Data protection,data,77.8,156,83,56,30,10,13,0,21
+Card Vault,Ads Platform,last quarter,Awareness training,training,86.5,156,83,56,30,10,13,0,21
+Card Vault,Ads Platform,last quarter,Incident response,incident,65.3,156,83,56,30,10,13,0,21
+Card Vault,Ads Platform,last quarter,Third-party risk,thirdparty,75.7,156,83,56,30,10,13,0,21
+Fraud Ops,Ads Platform,this quarter,Identity & access,identity,78.2,110,59,39,20,6,18,3,36
+Fraud Ops,Ads Platform,this quarter,Patching & vulnerabilities,patch,60.8,110,59,39,20,6,18,3,36
+Fraud Ops,Ads Platform,this quarter,Data protection,data,69.9,110,59,39,20,6,18,3,36
+Fraud Ops,Ads Platform,this quarter,Awareness training,training,85.5,110,59,39,20,6,18,3,36
+Fraud Ops,Ads Platform,this quarter,Incident response,incident,71.3,110,59,39,20,6,18,3,36
+Fraud Ops,Ads Platform,this quarter,Third-party risk,thirdparty,49.9,110,59,39,20,6,18,3,36
+Fraud Ops,Ads Platform,last quarter,Identity & access,identity,74.9,110,59,39,20,6,18,3,36
+Fraud Ops,Ads Platform,last quarter,Patching & vulnerabilities,patch,62.3,110,59,39,20,6,18,3,36
+Fraud Ops,Ads Platform,last quarter,Data protection,data,66,110,59,39,20,6,18,3,36
+Fraud Ops,Ads Platform,last quarter,Awareness training,training,83.9,110,59,39,20,6,18,3,36
+Fraud Ops,Ads Platform,last quarter,Incident response,incident,68.9,110,59,39,20,6,18,3,36
+Fraud Ops,Ads Platform,last quarter,Third-party risk,thirdparty,50,110,59,39,20,6,18,3,36
+Voice,Corporate IT,this quarter,Identity & access,identity,99,193,86,69,33,11,4,0,11
+Voice,Corporate IT,this quarter,Patching & vulnerabilities,patch,81.3,193,86,69,33,11,4,0,11
+Voice,Corporate IT,this quarter,Data protection,data,94.3,193,86,69,33,11,4,0,11
+Voice,Corporate IT,this quarter,Awareness training,training,99,193,86,69,33,11,4,0,11
+Voice,Corporate IT,this quarter,Incident response,incident,80.8,193,86,69,33,11,4,0,11
+Voice,Corporate IT,this quarter,Third-party risk,thirdparty,89.9,193,86,69,33,11,4,0,11
+Voice,Corporate IT,last quarter,Identity & access,identity,95,193,86,69,33,11,4,0,11
+Voice,Corporate IT,last quarter,Patching & vulnerabilities,patch,79.8,193,86,69,33,11,4,0,11
+Voice,Corporate IT,last quarter,Data protection,data,92.7,193,86,69,33,11,4,0,11
+Voice,Corporate IT,last quarter,Awareness training,training,93.1,193,86,69,33,11,4,0,11
+Voice,Corporate IT,last quarter,Incident response,incident,75.8,193,86,69,33,11,4,0,11
+Voice,Corporate IT,last quarter,Third-party risk,thirdparty,82.3,193,86,69,33,11,4,0,11
+Telemetry,Corporate IT,this quarter,Identity & access,identity,76.3,155,78,50,25,10,19,1,32
+Telemetry,Corporate IT,this quarter,Patching & vulnerabilities,patch,47.6,155,78,50,25,10,19,1,32
+Telemetry,Corporate IT,this quarter,Data protection,data,63.4,155,78,50,25,10,19,1,32
+Telemetry,Corporate IT,this quarter,Awareness training,training,80.5,155,78,50,25,10,19,1,32
+Telemetry,Corporate IT,this quarter,Incident response,incident,74,155,78,50,25,10,19,1,32
+Telemetry,Corporate IT,this quarter,Third-party risk,thirdparty,56.1,155,78,50,25,10,19,1,32
+Telemetry,Corporate IT,last quarter,Identity & access,identity,75.1,155,78,50,25,10,19,1,32
+Telemetry,Corporate IT,last quarter,Patching & vulnerabilities,patch,48.5,155,78,50,25,10,19,1,32
+Telemetry,Corporate IT,last quarter,Data protection,data,59.4,155,78,50,25,10,19,1,32
+Telemetry,Corporate IT,last quarter,Awareness training,training,81.2,155,78,50,25,10,19,1,32
+Telemetry,Corporate IT,last quarter,Incident response,incident,73,155,78,50,25,10,19,1,32
+Telemetry,Corporate IT,last quarter,Third-party risk,thirdparty,52.7,155,78,50,25,10,19,1,32
+Measurement,Corporate IT,this quarter,Identity & access,identity,82.3,109,53,39,18,6,18,3,33
+Measurement,Corporate IT,this quarter,Patching & vulnerabilities,patch,65.5,109,53,39,18,6,18,3,33
+Measurement,Corporate IT,this quarter,Data protection,data,71.4,109,53,39,18,6,18,3,33
+Measurement,Corporate IT,this quarter,Awareness training,training,94.3,109,53,39,18,6,18,3,33
+Measurement,Corporate IT,this quarter,Incident response,incident,65.7,109,53,39,18,6,18,3,33
+Measurement,Corporate IT,this quarter,Third-party risk,thirdparty,49.7,109,53,39,18,6,18,3,33
+Measurement,Corporate IT,last quarter,Identity & access,identity,76.5,109,53,39,18,6,18,3,33
+Measurement,Corporate IT,last quarter,Patching & vulnerabilities,patch,65,109,53,39,18,6,18,3,33
+Measurement,Corporate IT,last quarter,Data protection,data,70.4,109,53,39,18,6,18,3,33
+Measurement,Corporate IT,last quarter,Awareness training,training,88.3,109,53,39,18,6,18,3,33
+Measurement,Corporate IT,last quarter,Incident response,incident,65.6,109,53,39,18,6,18,3,33
+Measurement,Corporate IT,last quarter,Third-party risk,thirdparty,44.3,109,53,39,18,6,18,3,33
+Helpdesk,Corporate IT,this quarter,Identity & access,identity,86.8,237,89,83,34,17,14,0,38
+Helpdesk,Corporate IT,this quarter,Patching & vulnerabilities,patch,56.5,237,89,83,34,17,14,0,38
+Helpdesk,Corporate IT,this quarter,Data protection,data,82.4,237,89,83,34,17,14,0,38
+Helpdesk,Corporate IT,this quarter,Awareness training,training,75.5,237,89,83,34,17,14,0,38
+Helpdesk,Corporate IT,this quarter,Incident response,incident,56.9,237,89,83,34,17,14,0,38
+Helpdesk,Corporate IT,this quarter,Third-party risk,thirdparty,48.9,237,89,83,34,17,14,0,38
+Helpdesk,Corporate IT,last quarter,Identity & access,identity,80.7,237,89,83,34,17,14,0,38
+Helpdesk,Corporate IT,last quarter,Patching & vulnerabilities,patch,57.6,237,89,83,34,17,14,0,38
+Helpdesk,Corporate IT,last quarter,Data protection,data,75.3,237,89,83,34,17,14,0,38
+Helpdesk,Corporate IT,last quarter,Awareness training,training,69,237,89,83,34,17,14,0,38
+Helpdesk,Corporate IT,last quarter,Incident response,incident,53.3,237,89,83,34,17,14,0,38
+Helpdesk,Corporate IT,last quarter,Third-party risk,thirdparty,44.3,237,89,83,34,17,14,0,38

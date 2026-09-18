@@ -1,0 +1,7 @@
+kpi,label,direction,default_target,default_weight
+cpu,Cost per unit,low,4.16,30
+spend,Total spend,low,2.7,15
+units,Units shipped,high,658,15
+otd,On-time delivery,high,95.3,20
+dmg,Damage rate,low,0.43,10
+dso,Days to settle invoice,low,41.4,10
