@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amtul Saboor — Tableau Public Dashboards: User Guide</title>
+<style>
+  :root{--ink:#1f2933;--muted:#5b6770;--line:#e3e7ea;--bg:#ffffff;--soft:#f5f7f9;--accent:#2a78d6;--warn:#b97a00;--ok:#008300;--bad:#d0312f}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+  .wrap{max-width:1040px;margin:0 auto;padding:32px 20px 80px}
+  h1{font-size:30px;margin:0 0 4px}
+  h2{font-size:24px;margin:48px 0 8px;padding-top:24px;border-top:2px solid var(--line)}
+  h3{font-size:17px;margin:28px 0 8px}
+  p{margin:6px 0 10px}
+  .sub{color:var(--muted);margin-bottom:18px}
+  .toc{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:18px 0 8px}
+  .toc a{display:block;color:var(--accent);text-decoration:none;padding:3px 0}
+  .link{color:var(--accent);word-break:break-all}
+  .full{width:100%;border:1px solid var(--line);border-radius:8px;display:block;margin:10px 0 6px}
+  .caption{font-size:13px;color:var(--muted);margin:0 0 14px}
+  .item{display:grid;grid-template-columns:300px 1fr;gap:18px;align-items:start;padding:14px 0;border-top:1px solid var(--line)}
+  .item:first-of-type{border-top:0}
+  .crop{width:300px;height:190px;border:1px solid var(--line);border-radius:6px;background-repeat:no-repeat;background-color:#fff}
+  .item h4{margin:0 0 4px;font-size:16px}
+  .item p{margin:4px 0}
+  table{border-collapse:collapse;width:100%;margin:8px 0 14px;font-size:14px}
+  th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);font-weight:600}
+  code{background:var(--soft);padding:1px 5px;border-radius:4px;font-size:13px}
+  .tip{background:#eef5fd;border-left:4px solid var(--accent);padding:10px 14px;border-radius:6px;margin:12px 0}
+  .note{font-size:13px;color:var(--muted)}
+  @media (max-width:720px){.item{grid-template-columns:1fr}.crop{width:100%}}
+  @media print{h2{break-before:page}.crop{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Amtul Saboor — Tableau Public Dashboards</h1>
+<p class="sub">A plain-language guide to the four portfolio dashboards: what each visual shows, what every filter and parameter does, and how to read the auto-written commentary. All data is simulated with a fixed seed, so numbers are reproducible and no employer data is used.</p>
+
+<div class="toc">
+  <a href="#howto">How to use any of these dashboards</a>
+  <a href="#freight">1. Freight Spend WBR — Transportation Scorecard</a>
+  <a href="#growth">2. Reader Growth Pulse — Subscription Analytics</a>
+  <a href="#security">3. Security Posture Scorecard — Org and Team Risk</a>
+  <a href="#hospital">4. Hospital Margin and Quality — Health System Finance</a>
+</div>
+<p>Profile: <a class="link" href="https://public.tableau.com/app/profile/amtl">public.tableau.com/app/profile/amtl</a></p>
+
+<h2 id="howto">How to use any of these dashboards</h2>
+<p>Every dashboard follows the same layout. The <b>top-left tile</b> is a scorecard of headline numbers. Next to it is a <b>commentary panel</b> — a sentence or two written by the workbook itself from the current numbers, so it rewrites when you change anything. The large chart is the <b>main trend or comparison</b>. The <b>right-hand column</b> holds the controls: colour legends first, then <b>parameters</b> (typed inputs or sliders that feed calculations) and <b>filters</b> (checkbox lists that narrow the data).</p>
+<div class="tip">
+<b>Filters vs. parameters.</b> A <i>filter</i> removes rows — untick "LTL" and the dashboard recalculates with LTL lanes gone. A <i>parameter</i> is a number you type that formulas use — change "Target Cost per Unit" and the variance, status and commentary all recompute, but no data is removed.
+</div>
+<p>Other things worth knowing: hover any mark for a tooltip; click a legend entry to highlight it (click again to clear); the tabs across the top open each worksheet on its own; the toolbar at the bottom has <b>undo</b>, <b>reset</b> (revert to the published state), <b>download</b> and <b>share</b>. A typed parameter takes effect when you press Enter or click away.</p>
+
+<!-- ===================== 1. FREIGHT ===================== -->
+<h2 id="freight">1. Freight Spend WBR — Transportation Scorecard</h2>
+<p><b>Question it answers:</b> Is the transportation network hitting its cost, service and settlement targets this week, and what should leadership do about it?</p>
+<p><b>Data:</b> 24 lanes across 3 regions, 4 modes and 6 carriers, 78 weeks of units, spend, on-time %, damage %, invoice accuracy, days to settle and fuel share.</p>
+<p>Link: <a class="link" href="https://public.tableau.com/app/profile/amtl/viz/FreightSpendWBR-TransportationScorecard/FreightSpendWBR">FreightSpendWBR-TransportationScorecard/FreightSpendWBR</a></p>
+<img class="full" src="https://public.tableau.com/static/images/Fr/FreightSpendWBR-TransportationScorecard/FreightSpendWBR/1.png" alt="Freight Spend WBR dashboard">
+<p class="caption">Full dashboard. Week 78 is the selected week; targets are the defaults.</p>
+
+<h3>Visuals</h3>
+<div class="item"><div class="crop" data-img="freight" data-box="0,0.09,0.21,0.28"></div><div>
+<h4>KPI Scorecard</h4>
+<p>Nine numbers for the selected week: <b>Cost per Unit</b> (spend ÷ units, the headline metric), <b>CPU Var to Target %</b> (how far cost per unit is above or below your target), <b>CPU What-If</b> (cost per unit after the four what-if sliders are applied), <b>Spend ($M)</b>, <b>Units (k)</b>, <b>On-Time %</b> and <b>Damage Rate %</b> (both weighted by units), <b>Days to Settle</b> (weighted by spend) and <b>Network Health Score</b> (0–100 composite, see below).</p>
+<p class="note">Cost per Unit and On-Time are the two numbers a transportation controller looks at first.</p></div></div>
+
+<div class="item"><div class="crop" data-img="freight" data-box="0.21,0.09,0.21,0.32"></div><div>
+<h4>Commentary</h4>
+<p>Written automatically from the numbers: cost per unit vs. your target, the variance, the RAG status ("On track / Watch / Off track"), the health score, and what cost per unit <i>would</i> be with the current what-if sliders. Move any slider or change a target and this sentence rewrites itself.</p></div></div>
+
+<div class="item"><div class="crop" data-img="freight" data-box="0.42,0.09,0.41,0.43"></div><div>
+<h4>CPU Trend vs Target</h4>
+<p>Cost per unit for the 26 weeks up to the selected week. The horizontal grey line is the <b>Target Cost per Unit</b> parameter, so the gap between line and target is the story. Weeks above the line are over target.</p></div></div>
+
+<div class="item"><div class="crop" data-img="freight" data-box="0,0.52,0.43,0.25"></div><div>
+<h4>Spend by Mode</h4>
+<p>Total spend in the selected week split by mode (Air, Intermodal, LTL, Truckload). Colours match the Mode legend at the top right. Use it to see which mode is carrying the budget.</p></div></div>
+
+<div class="item"><div class="crop" data-img="freight" data-box="0.42,0.52,0.41,0.46"></div><div>
+<h4>Lane Watchlist</h4>
+<p>One row per lane in the selected week: <b>CPU Var %</b> (variance to target for that lane), <b>Cost per Unit</b>, <b>Lane Opportunity $</b> (how many dollars the lane is above or below target — variance × units, so the biggest positive numbers are the biggest savings opportunities) and <b>Units (k)</b>. Lanes with fewer units than the <b>Min Lane Units</b> parameter are hidden so small lanes don't distract.</p></div></div>
+
+<h3>Filters and controls (right column)</h3>
+<table>
+<tr><th style="width:26%">Control</th><th>What it does</th></tr>
+<tr><td>Mode (legend)</td><td>Colour key for the Spend by Mode bars. Click an entry to highlight that mode.</td></tr>
+<tr><td>Selected Week (slider 1–78)</td><td>Which week the scorecard, spend-by-mode and lane watchlist show. The trend chart shows the 26 weeks ending at this week.</td></tr>
+<tr><td>Region (checkboxes)</td><td>Restricts every visual to the ticked regions (Americas, Asia Pacific, Europe).</td></tr>
+</table>
+
+<h3>Parameters (typed inputs)</h3>
+<table>
+<tr><th style="width:26%">Parameter</th><th>Default</th><th>Meaning</th></tr>
+<tr><td>Target Cost per Unit</td><td>4.16</td><td>The $/unit goal. Drives variance, RAG status, the reference line, lane opportunity $ and the health score.</td></tr>
+<tr><td>Target On-Time %, Target Damage Rate %, Target Days to Settle, Target Spend ($M), Target Units (k)</td><td>95.3 / 0.43 / 41.4 / 2.70 / 658</td><td>Goals for the other KPIs; each feeds the Network Health Score.</td></tr>
+<tr><td>Amber Band %, Red Band %</td><td>3 / 8</td><td>RAG thresholds on CPU variance: within Amber = "On track", between Amber and Red = "Watch", above Red = "Off track".</td></tr>
+<tr><td>Min Lane Units</td><td>5000</td><td>Lanes with fewer units in the selected week drop off the watchlist.</td></tr>
+<tr><td>Diesel Change %, Volume Growth %, Rate Change %, Intermodal Shift %</td><td>0</td><td>What-if sliders. Diesel raises cost in proportion to each lane's fuel share; rate change scales contract cost; volume growth dilutes fixed cost; intermodal shift moves truckload volume to cheaper intermodal. They only affect <b>CPU What-If</b> and the commentary — the actual numbers don't change.</td></tr>
+<tr><td>Weight: Cost per Unit / Spend / Units / On-Time / Damage / Settlement</td><td>30/15/15/20/10/10</td><td>How much each KPI counts in the Network Health Score. Each KPI scores 100 when it meets its target and less in proportion when it misses; the weights average those scores.</td></tr>
+</table>
+
+<!-- ===================== 2. GROWTH ===================== -->
+<h2 id="growth">2. Reader Growth Pulse — Subscription Analytics</h2>
+<p><b>Question it answers:</b> Where are new subscribers coming from, are they staying, and is the onboarding experiment worth shipping?</p>
+<p><b>Data:</b> 52 weeks of a subscription ledger — 5 acquisition channels × 5 markets × 3 plans, with gross adds, churn, active subscribers and new-subscriber revenue each week.</p>
+<p>Link: <a class="link" href="https://public.tableau.com/app/profile/amtl/viz/ReaderGrowthPulse-SubscriptionAnalytics/ReaderGrowthPulse">ReaderGrowthPulse-SubscriptionAnalytics/ReaderGrowthPulse</a></p>
+<img class="full" src="https://public.tableau.com/static/images/Re/ReaderGrowthPulse-SubscriptionAnalytics/ReaderGrowthPulse/1.png" alt="Reader Growth Pulse dashboard">
+<p class="caption">Full dashboard with the default 13-week window.</p>
+
+<h3>Visuals</h3>
+<div class="item"><div class="crop" data-img="growth" data-box="0,0.09,0.20,0.21"></div><div>
+<h4>KPI Summary</h4>
+<p>Totals for the chosen window: <b>Gross Adds</b> (new subscribers), <b>Churned</b>, <b>Net Adds</b> (gross − churn), <b>New Sub Revenue</b>, <b>Monthly Churn %</b> (churn per month as a share of the ending active base) and <b>Retention Health</b> (0–100; 100 − 8 × monthly churn, capped).</p></div></div>
+
+<div class="item"><div class="crop" data-img="growth" data-box="0.21,0.09,0.21,0.22"></div><div>
+<h4>Net Adds by Market and Plan</h4>
+<p>A highlight table: rows are plans (Annual, Family, Monthly), columns are markets (BR, DE, IN, UK, US). Darker cells mean more net adds. It shows at a glance which market–plan combinations are growing.</p></div></div>
+
+<div class="item"><div class="crop" data-img="growth" data-box="0.42,0.09,0.41,0.29"></div><div>
+<h4>Growth Insight</h4>
+<p>Auto-written: compares net adds in the current window with the previous window of the same length and says whether growth is <i>accelerating</i> (up more than 5%), <i>slowing</i> (down more than 5%) or <i>steady</i>, then quotes churn and retention health and gives a recommendation. Change the window or any filter and it rewrites.</p></div></div>
+
+<div class="item"><div class="crop" data-img="growth" data-box="0,0.53,0.20,0.22"></div><div>
+<h4>Channel Mix</h4>
+<p>Pie of gross adds by acquisition channel (Organic search, Paid social, Referral, Email, App store) for the window. Colours match the Channel legend.</p></div></div>
+
+<div class="item"><div class="crop" data-img="growth" data-box="0.21,0.53,0.21,0.31"></div><div>
+<h4>A/B Test Verdict</h4>
+<p>A two-proportion z-test on the onboarding experiment. Type the control and variant conversion rates and the sample per arm; the text reports the relative lift, the z-score and a verdict — "significant at 95% confidence — ship the variant" when |z| ≥ 1.96, otherwise "keep testing".</p></div></div>
+
+<div class="item"><div class="crop" data-img="growth" data-box="0.42,0.53,0.41,0.43"></div><div>
+<h4>Weekly Adds vs Churn</h4>
+<p>Two stacked panels: weekly gross adds (top) and weekly churn (bottom) across the window. Growth is healthy when the top line rises faster than the bottom one.</p></div></div>
+
+<h3>Filters and controls</h3>
+<table>
+<tr><th style="width:26%">Control</th><th>What it does</th></tr>
+<tr><td>Plan / Channel / Market (checkboxes)</td><td>Narrow every visual to the ticked plans, channels or markets. Useful questions: "how is Paid social doing in India?" — tick only those two.</td></tr>
+<tr><td>Window (weeks) — 4 to 26</td><td>How many of the most recent weeks the dashboard covers. The insight text compares this window with the previous one of the same length.</td></tr>
+<tr><td>A/B Control Conversion %, A/B Variant Conversion %, A/B Sample per Arm</td><td>Inputs to the z-test (defaults 12.4%, 13.6%, 5,000). Try 20,000 per arm and the same lift becomes significant — a good demonstration of sample size.</td></tr>
+</table>
+
+<!-- ===================== 3. SECURITY ===================== -->
+<h2 id="security">3. Security Posture Scorecard — Org and Team Risk</h2>
+<p><b>Question it answers:</b> How secure is each organisation and team, and where should leadership push first?</p>
+<p><b>Data:</b> 24 teams in 5 orgs (~2,900 people), scored 0–100 in six control domains aligned to NIST CSF (Identity &amp; access, Patching &amp; vulnerabilities, Data protection, Awareness training, Incident response, Third-party risk), for this quarter and last, with open findings, critical findings and median days to fix.</p>
+<p>Link: <a class="link" href="https://public.tableau.com/app/profile/amtl/viz/SecurityPostureScorecard-OrgandTeamRisk/SecurityPostureScorecard">SecurityPostureScorecard-OrgandTeamRisk/SecurityPostureScorecard</a></p>
+<img class="full" src="https://public.tableau.com/static/images/Se/SecurityPostureScorecard-OrgandTeamRisk/SecurityPostureScorecard/1.png" alt="Security Posture Scorecard dashboard">
+<p class="caption">Full dashboard with default domain weights.</p>
+
+<h3>Visuals</h3>
+<div class="item"><div class="crop" data-img="security" data-box="0,0.09,0.20,0.12"></div><div>
+<h4>Composite Score</h4>
+<p><b>This Quarter Score</b> and <b>Last Quarter Score</b>: each is the headcount-weighted average of the six domain scores, with each domain counted according to the weight you set. Grades: A ≥ 90, B ≥ 80, C ≥ 70, else D.</p></div></div>
+
+<div class="item"><div class="crop" data-img="security" data-box="0.21,0.09,0.21,0.43"></div><div>
+<h4>Exposure vs Remediation</h4>
+<p>One bubble per team. Across: average open findings (exposure). Up: median days to fix (how slowly they remediate). Bubble size = headcount; colour = critical findings open (0 / 1–2 / 3+). The worst place to be is top-right and red — many findings, slow to fix, with critical ones open.</p></div></div>
+
+<div class="item"><div class="crop" data-img="security" data-box="0.42,0.09,0.41,0.30"></div><div>
+<h4>Security Insight</h4>
+<p>Auto-written: composite score and grade, movement since last quarter, number of critical findings open across the teams in scope, and a nudge to raise the weight of the weakest domain to see how much the composite moves.</p></div></div>
+
+<div class="item"><div class="crop" data-img="security" data-box="0,0.53,0.41,0.28"></div><div>
+<h4>Score by Domain</h4>
+<p>Headcount-weighted score for each of the six domains this quarter. The shortest bar is where the organisation is weakest.</p></div></div>
+
+<div class="item"><div class="crop" data-img="security" data-box="0.42,0.53,0.41,0.45"></div><div>
+<h4>Team Leaderboard</h4>
+<p>All 24 teams ranked by weighted score, coloured by grade (A red, B blue, C orange, D aqua — see the Grade legend). Scroll to see the bottom of the list.</p></div></div>
+
+<h3>Filters and controls</h3>
+<table>
+<tr><th style="width:26%">Control</th><th>What it does</th></tr>
+<tr><td>Org (checkboxes)</td><td>Restrict every visual to the ticked organisations (Ads Platform, Corporate IT, Devices, Payments, Retail Tech).</td></tr>
+<tr><td>Weight: Identity &amp; Access / Patching / Data Protection / Awareness Training / Incident Response / Third-Party Risk</td><td>How much each domain counts in the composite (defaults 25/20/20/10/15/10). Raise Patching to 50 and watch the composite, the grades on the leaderboard and the insight text all change — that is the "what matters most" conversation with leadership.</td></tr>
+<tr><td>Grade, Critical Bucket, Avg Headcount (legends)</td><td>Colour and size keys for the leaderboard and bubble chart.</td></tr>
+</table>
+
+<!-- ===================== 4. HOSPITAL ===================== -->
+<h2 id="hospital">4. Hospital Margin and Quality — Health System Finance</h2>
+<p><b>Question it answers:</b> Where does the operating margin come from, and is quality keeping pace with finance?</p>
+<p><b>Data:</b> 4 facilities × 6 service lines × 4 quarters: gross charges, net revenue, contribution, operating expense, bad debt, payer mix, days in A/R and five quality measures with CMS-style benchmarks.</p>
+<p>Link: <a class="link" href="https://public.tableau.com/app/profile/amtl/viz/HospitalMarginandQuality-HealthSystemFinance/HospitalMarginandQuality">HospitalMarginandQuality-HealthSystemFinance/HospitalMarginandQuality</a></p>
+<img class="full" src="https://public.tableau.com/static/images/Ho/HospitalMarginandQuality-HealthSystemFinance/HospitalMarginandQuality/1.png" alt="Hospital Margin and Quality dashboard">
+<p class="caption">Full dashboard, all facilities, service lines and quarters.</p>
+
+<h3>Visuals</h3>
+<div class="item"><div class="crop" data-img="hospital" data-box="0,0.09,0.20,0.18"></div><div>
+<h4>KPI Tiles</h4>
+<p><b>Net Revenue ($M)</b>, <b>Operating Margin %</b> ((net revenue − operating expense) ÷ net revenue), <b>Days in A/R</b>, <b>Readmission %</b> and <b>HCAHPS Top-Box %</b>. The quality numbers are weighted by net revenue so big service lines count more.</p></div></div>
+
+<div class="item"><div class="crop" data-img="hospital" data-box="0.21,0.09,0.21,0.46"></div><div>
+<h4>Margin Trend by Facility</h4>
+<p>Operating margin % by quarter (Q4 FY25 → Q3 FY26), one line per facility. The dip in Q1 FY26 and recovery afterwards is the pattern to talk about; Chenango Memorial has the most volatile margin.</p></div></div>
+
+<div class="item"><div class="crop" data-img="hospital" data-box="0.42,0.09,0.41,0.33"></div><div>
+<h4>Commentary</h4>
+<p>Auto-written: net revenue and margin with a verdict against the 4% healthy-system benchmark, how many of the five quality measures meet the benchmarks you set, and the dollar value of shifting payer mix toward commercial by the number of points you choose.</p></div></div>
+
+<div class="item"><div class="crop" data-img="hospital" data-box="0,0.53,0.24,0.18"></div><div>
+<h4>Quality Measures</h4>
+<p>Revenue-weighted <b>Avg LOS (days)</b>, <b>HCAHPS Top-Box %</b>, <b>Infection Index</b>, <b>Mortality %</b> and <b>Readmission %</b>. Compare each with the benchmark parameter of the same name; the commentary counts how many are met.</p></div></div>
+
+<div class="item"><div class="crop" data-img="hospital" data-box="0.42,0.53,0.41,0.28"></div><div>
+<h4>Service Line Contribution</h4>
+<p>Contribution margin ($M) by service line, sorted, coloured by operating margin % (orange = low, blue = high). Cardiology carries the system; Emergency and Maternity are thin.</p></div></div>
+
+<h3>Filters and controls</h3>
+<table>
+<tr><th style="width:26%">Control</th><th>What it does</th></tr>
+<tr><td>Facility / Service Line / Quarter (checkboxes)</td><td>Restrict every visual. Tick one facility to get a facility scorecard; tick one quarter for a quarter-end review.</td></tr>
+<tr><td>Payer Shift to Commercial (pts)</td><td>How many percentage points of payer mix you assume move from self-pay to commercial. The commentary converts it to dollars using the collection-rate gap between the two payers.</td></tr>
+<tr><td>Benchmark: Readmission % / HCAHPS Top-Box % / Infection Index / Mortality % / Avg LOS Days</td><td>Targets for the five quality measures (defaults 15 / 72 / 1.0 / 2.8 / 4.9, approximating CMS national rates). Tighten them and the "n of 5 met" count in the commentary changes.</td></tr>
+<tr><td>Operating Margin % (legend)</td><td>Colour key for the service-line bars.</td></tr>
+</table>
+
+<h2>Notes for interviews</h2>
+<p>Each workbook uses a single extract built from a CSV; every KPI is a calculated field (no hard-coded numbers), every target is a parameter, and the commentary panels are string calculations that branch with IF/ELSEIF on the live values. The same four datasets and formulas exist as standalone HTML dashboards in the GitHub portfolio, so the Tableau and web versions reconcile to the same numbers.</p>
+<p class="note">Images on this page are loaded live from Tableau Public, so they always reflect the latest published version.</p>
+
+</div>
+<script>
+(function(){
+  var imgs={
+    freight:'https://public.tableau.com/static/images/Fr/FreightSpendWBR-TransportationScorecard/FreightSpendWBR/1.png',
+    growth:'https://public.tableau.com/static/images/Re/ReaderGrowthPulse-SubscriptionAnalytics/ReaderGrowthPulse/1.png',
+    security:'https://public.tableau.com/static/images/Se/SecurityPostureScorecard-OrgandTeamRisk/SecurityPostureScorecard/1.png',
+    hospital:'https://public.tableau.com/static/images/Ho/HospitalMarginandQuality-HealthSystemFinance/HospitalMarginandQuality/1.png'
+  };
+  var IW=1000, IH=850; // published image size
+  document.querySelectorAll('.crop').forEach(function(el){
+    var b=el.getAttribute('data-box').split(',').map(Number); // fx,fy,fw,fh (fractions of image)
+    var cw=el.clientWidth||300;
+    var scale=cw/(b[2]*IW);
+    var ch=Math.round(b[3]*IH*scale);
+    el.style.height=ch+'px';
+    el.style.backgroundImage='url('+imgs[el.getAttribute('data-img')]+')';
+    el.style.backgroundSize=(IW*scale)+'px '+(IH*scale)+'px';
+    el.style.backgroundPosition=(-b[0]*IW*scale)+'px '+(-b[1]*IH*scale)+'px';
+  });
+})();
+</script>
+</body>
+</html>
